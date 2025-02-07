@@ -21,7 +21,7 @@ const Sidebar = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="flex h-full">
+    <div className="flex h-full fixed">
       <div
         className={`bg-green-900 text-white shadow-lg transition-all duration-300 z-1000 ${
           isOpen ? "w-64" : "w-26"
