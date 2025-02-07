@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleSidebar } from "../../features/sidebar/sidebarSlice.js";
+import { Tooltip, IconButton } from "@mui/material";
 import Dashboard from "./Dashboard.jsx";
 import Dash from "./Dash.jsx";
 import {
@@ -35,18 +36,39 @@ const Sidebar = () => {
           >
             EcoFarmIQ
           </span>
-          <button
-            onClick={() => dispatch(toggleSidebar())}
-            className={`p-2 bg-green-700 rounded-full hover:bg-green-600 transition-all duration-300 ${
-              isOpen ? "ml-0" : "-ml-10"
-            } z-1000 cursor-pointer`} 
+          <Tooltip
+            title={isOpen ? "Close the sidebar" : "Open the sidebar"}
+            arrow
+            placement="right"
+            sx={{
+              "& .MuiTooltip-tooltip": {
+                backgroundColor: "black",
+                color: "white",
+                fontSize: "0.875rem",
+                padding: "6px 12px",
+                borderRadius: "6px",
+              },
+            }}
           >
-            {isOpen ? (
-              <ChevronLeft className="text-white" />
-            ) : (
-              <ChevronRight className="text-white" />
-            )}
-          </button>
+            <IconButton
+              onClick={() => dispatch(toggleSidebar())}
+              sx={{
+                p: .5,
+                bgcolor: "#32CD32", // Light green background
+                borderRadius: "50%",
+                transition: "all 300ms",
+                ml: isOpen ? 0 : -2, // Adjust positioning
+                zIndex: 1000,
+                "&:hover": { bgcolor: "#2E8B57" }, // Darker green on hover
+              }}
+            >
+              {isOpen ? (
+                <ChevronLeft sx={{ color: "white" }} />
+              ) : (
+                <ChevronRight sx={{ color: "white" }} />
+              )}
+            </IconButton>
+          </Tooltip>
         </div>
 
         {/* User Profile */}
@@ -60,7 +82,7 @@ const Sidebar = () => {
           </div>
           {isOpen && (
             <div>
-              <p className="text-sm font-semibold">Haylemeskel Hayle...</p>
+              <p className="text-1xl font-bold">Hayle HB.</p>
               <p className="text-xs text-green-300">Farmer</p>
             </div>
           )}
