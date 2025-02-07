@@ -11,6 +11,7 @@ import TestimonialCard from "./components/Testimonial/Testimonial.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleSidebar } from "../src/features/sidebar/sidebarSlice.js";
 import PrivacyCard from "./components/PrivacyCard/PrivacyCard.jsx";
+import PieChartUsage from "./components/PieChart/PieChartUsage.jsx";
 const App = () => {
   const isOpen = useSelector((state) => state.sidebar.isOpen);
   const dispatch = useDispatch();
@@ -40,9 +41,10 @@ const App = () => {
   return (
     <>
       <div className="">
-        <Sidebar />
+         <Sidebar /> 
+          <DashBoard />
         <PieChartDashboard />
-        <DashBoard />
+      
         <GaugeChartUsage />
         <LineChartUsage />
         <BarChartUsage />
@@ -59,10 +61,14 @@ const App = () => {
             );
           })}
         </div>
-        <PrivacyCard />
+        <PrivacyCard /> 
       </div>
+      {/* {/* <PieChartUsage/> */}
     </>
   );
 };
+
+
+
 
 export default App;

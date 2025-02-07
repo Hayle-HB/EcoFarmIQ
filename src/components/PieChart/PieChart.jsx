@@ -1,33 +1,58 @@
+// components/PieChart.js
 import React from "react";
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import ReactECharts from "echarts-for-react";
 
-const CustomPieChart = ({
-  data,
-  dataKey,
-  nameKey,
-  width = "100%",
-  height = 200,
+const PieChart = ({
+  title = "Pie Chart",
+  subtext = "",
+  data = [],
   colors = [],
+  legendPosition = "left",
+  radius = "50%",
+  height = "400px",
 }) => {
+  const option = {
+    title: {
+      text: title,
+      subtext: subtext,
+      left: "center",
+      textStyle: {
+        color: "#fff", // Ensures compatibility with dark mode
+      },
+    },
+    tooltip: {
+      trigger: "item",
+    },
+    legend: {
+      orient: "vertical",
+      left: legendPosition,
+      textStyle: {
+        color: "#fff", // Dark mode support
+      },
+    },
+    series: [
+      {
+        name: title,
+        type: "pie",
+        radius: radius,
+        data: data,
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: "rgba(0, 0, 0, 0.5)",
+          },
+        },
+      },
+    ],
+    color: colors.length > 0 ? colors : undefined,
+  };
+
   return (
-    <ResponsiveContainer width={width} height={height}>
-      <PieChart>
-        <Pie
-          data={data}
-          dataKey={dataKey}
-          nameKey={nameKey}
-          cx="50%"
-          cy="50%"
-          outerRadius={60}
-          label
-        >
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={colors[index] || "#8884d8"} />
-          ))}
-        </Pie>
-      </PieChart>
-    </ResponsiveContainer>
+    <div className="w-full max-w-lg p-4 bg-white /*dark:bg-gray-900 shadow-md*/  rounded-2xl">
+      <ReactECharts option={option} style={{ height: height }} />
+    </div>
   );
 };
 
-export default CustomPieChart;
+export default PieChart;
