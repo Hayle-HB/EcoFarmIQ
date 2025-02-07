@@ -41,15 +41,19 @@ const App = () => {
   return (
     <>
       <div className="">
-         <Sidebar /> 
-          <DashBoard />
+        <Sidebar />
+        <DashBoard />
         <PieChartDashboard />
-      
+
         <GaugeChartUsage />
         <LineChartUsage />
         <BarChartUsage />
 
-        <div className={`grid grid-cols-2 gap-4 md:grid-cols-3  ${isOpen ? "ml-64" : "ml-10"} transition-all duration-300 `}>
+        <div
+          className={`grid grid-cols-2 gap-4 md:grid-cols-3  ${
+            isOpen ? "ml-64" : "ml-10"
+          } transition-all duration-300 `}
+        >
           {TestimonialData.map((item, index) => {
             return (
               <TestimonialCard
@@ -61,14 +65,11 @@ const App = () => {
             );
           })}
         </div>
-        <PrivacyCard /> 
+        <PrivacyCard />
       </div>
-      {/* {/* <PieChartUsage/> */}
+      <PieChartUsage />
     </>
   );
 };
-
-
-
 
 export default App;
