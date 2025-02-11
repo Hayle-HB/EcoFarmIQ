@@ -1,5 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&display=swap');
+
 @import "tailwindcss";
 
 body {
   background-color: rgb(35, 35, 52);
+}
+
+@theme {
+  --roboto--: "Atkinson Hyperlegible", sans-serif; 
+
 }

@@ -22,9 +22,9 @@ const Sidebar = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="flex h-full fixed">
+    <div className="flex h-full fixed z-1000">
       <div
-        className={`bg-green-900 text-white shadow-lg transition-all duration-300 z-1000 ${
+        className={`bg-green-900 text-white shadow-lg transition-all duration-300 ${
           isOpen ? "w-64" : "w-26"
         } h-screen fixed top-0 left-0 flex flex-col p-4`}
       >
