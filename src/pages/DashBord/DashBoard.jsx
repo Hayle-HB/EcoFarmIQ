@@ -5,7 +5,7 @@ import TopNav from "../../components/SideBar/TopNav.jsx";
 import plant1 from "../../assets/images/agri/plant1.jpg";
 import plant2 from "../../assets/images/agri/plant2.jpg";
 import svg from "../../assets/svg/svg1.svg";
-import Button from "../../components/Button/BUtton.jsx";
+import Button from "../../components/Button/Button.jsx";
 import "./D.css";
 
 import { motion } from "framer-motion";
