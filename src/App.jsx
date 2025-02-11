@@ -3,7 +3,6 @@ import React, { useState } from "react";
 // import From from "./components/Subscribe/Subscribe";
 import Sidebar from "./components/SideBar/SideBar.jsx";
 import PieChartDashboard from "./components/SideBar/Dash.jsx";
-import DashBoard from "./components/SideBar/Dashboard.jsx";
 import GaugeChartUsage from "./components/GaugeChart/GaugeUsage.jsx";
 import LineChartUsage from "./components/LineChart/LineChartUsage.jsx";
 import BarChartUsage from "./components/BarChart/BarChartUsage.jsx";
@@ -12,6 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleSidebar } from "../src/features/sidebar/sidebarSlice.js";
 import PrivacyCard from "./components/PrivacyCard/PrivacyCard.jsx";
 import PieChartUsage from "./components/PieChart/PieChartUsage.jsx";
+import DashBoards from "./pages/DashBord/DashBoard.jsx";
 const App = () => {
   const isOpen = useSelector((state) => state.sidebar.isOpen);
   const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const App = () => {
     <>
       <div className="">
         <Sidebar />
-        <DashBoard />
+        <DashBoards />
         <PieChartDashboard />
 
         <GaugeChartUsage />

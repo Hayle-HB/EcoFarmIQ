@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Search, Bell, User, X } from "lucide-react";
 
-const Navbar = ({ isSidebarOpen }) => {
+const TopNav = ({ isOpen }) => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
   return (
     <div
-      className={`flex justify-between items-center bg-white  p-4 fixed left-40 top-0 ${
-        isSidebarOpen ? "left-64" : "left-0"
-      } left-94 right-0 z-50 transition-all`}
+      className={`flex justify-between bg-white  p-5 fixed left-0  top-0 ${
+        isOpen ? "-ml-30 pl-20" : "-ml-69 pl-30"
+      } left-94 right-0  transition-all z-900`}
     >
       {/* Search Bar */}
       <div className="relative flex items-center">
@@ -54,13 +54,13 @@ const Navbar = ({ isSidebarOpen }) => {
   );
 };
 
-export default Navbar;
+export default TopNav;
 
 import { MoreVertical } from "lucide-react";
 
 const NavbarRightContent = () => {
   return (
-    <div className="flex items-center space-x-6">
+    <div className="flex  items-center space-x-6">
       <div className="relative">
         <Bell className="text-gray-700 cursor-pointer" size={24} />
         <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2">1</span>

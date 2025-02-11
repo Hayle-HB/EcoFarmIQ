@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleSidebar } from "../../features/sidebar/sidebarSlice.js";
 import { Tooltip, IconButton } from "@mui/material";
-import Dashboard from "./Dashboard.jsx";
+// import Dashboard from "./TopNav.jsx";
 import Dash from "./Dash.jsx";
 import {
   LayoutDashboard,
@@ -14,7 +14,8 @@ import {
   Settings,
   ChevronLeft,
   ChevronRight,
-} from "lucide-react"; // Icons
+} from "lucide-react"; 
+import TopNav from "./TopNav.jsx";
 
 const Sidebar = () => {
   const isOpen = useSelector((state) => state.sidebar.isOpen);
@@ -124,20 +125,15 @@ const Sidebar = () => {
         </nav>
       </div>
 
-      {/* Content Area
+      Content Area
       <div
         className={`flex-1 transition-all ml-${
           isOpen ? "64" : "20"
         } mt-10 duration-300 p-5`}
       >
-        <h1 className="text-green-900 text-2xl font-bold flex justify-center align-center">
-          Welcome to EcoFarmIQ! 🌱
-        </h1>
-        <div className="flex flex-col">
-          <Dashboard />
-          <Dash />
-        </div>
-      </div> */}
+        <TopNav isOpen={isOpen}/>
+    
+      </div>
     </div>
   );
 };
