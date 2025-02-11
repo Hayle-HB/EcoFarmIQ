@@ -63,7 +63,7 @@ const NavbarRightContent = () => {
     <div className="flex  items-center space-x-6">
       <div className="relative">
         <Bell className="text-gray-700 cursor-pointer" size={24} />
-        <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2">1</span>
+        <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2">9</span>
       </div>
       <div className="relative">
         <User className="text-gray-700 cursor-pointer rounded-full" size={32} />
