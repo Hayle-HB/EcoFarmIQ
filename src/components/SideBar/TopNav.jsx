@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Search, Bell, User, X } from "lucide-react";
+import NotificationDropdown from "../Notifications/NotificationDropdown";
 
 const TopNav = ({ isOpen }) => {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -58,12 +59,93 @@ export default TopNav;
 
 import { MoreVertical } from "lucide-react";
 
-const NavbarRightContent = () => {
+const NotificationItem = ({ title, time, isRead }) => {
   return (
-    <div className="flex  items-center space-x-6">
-      <div className="relative">
-        <Bell className="text-gray-700 cursor-pointer" size={24} />
-        <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2">9</span>
+    <div
+      className={`p-3 hover:bg-gray-100 cursor-pointer ${
+        !isRead ? "bg-blue-50" : ""
+      }`}
+    >
+      <div className="flex justify-between items-start">
+        <p className={`text-sm ${!isRead ? "font-semibold" : ""}`}>{title}</p>
+        <span className="text-xs text-gray-500">{time}</span>
+      </div>
+    </div>
+  );
+};
+
+const NavbarRightContent = () => {
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const notificationRef = useRef(null);
+
+  // Sample notifications - replace with your actual data
+  const notifications = [
+    {
+      id: 1,
+      title: "New Project Invitation",
+      description: "John Doe invited you to join Project X",
+      time: "5 minutes ago",
+      isRead: false,
+      onMarkAsRead: () => console.log("Marked as read"),
+    },
+    {
+      id: 2,
+      title: "Task Completed",
+      description: "Frontend development task has been marked as complete",
+      time: "1 hour ago",
+      isRead: false,
+      onMarkAsRead: () => console.log("Marked as read"),
+    },
+    {
+      id: 3,
+      title: "System Update",
+      description: "System maintenance scheduled for tonight",
+      time: "2 hours ago",
+      isRead: true,
+      onMarkAsRead: () => console.log("Marked as read"),
+    },
+  ];
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        notificationRef.current &&
+        !notificationRef.current.contains(event.target)
+      ) {
+        setNotificationOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div className="flex items-center space-x-6">
+      <div className="relative" ref={notificationRef}>
+        <div className="group relative">
+          <Bell
+            className="text-gray-700 hover:text-gray-900 cursor-pointer transition-colors duration-200"
+            size={24}
+            onClick={() => setNotificationOpen(!notificationOpen)}
+          />
+          <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5 min-w-[20px] text-center">
+            {notifications.filter((n) => !n.isRead).length}
+          </span>
+
+          {/* Tooltip */}
+          <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 hidden group-hover:block">
+            <div className="bg-gray-800 text-white text-xs py-1 px-2 rounded whitespace-nowrap">
+              Show notifications
+            </div>
+          </div>
+        </div>
+
+        <NotificationDropdown
+          isOpen={notificationOpen}
+          onClose={() => setNotificationOpen(false)}
+          notifications={notifications}
+        />
       </div>
       <div className="relative">
         <User className="text-gray-700 cursor-pointer rounded-full" size={32} />
@@ -73,4 +155,3 @@ const NavbarRightContent = () => {
     </div>
   );
 };
-
