@@ -7,20 +7,42 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const CropDistributionChart = ({ data, title = "Crop Distribution" }) => {
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "right",
+        align: "center",
+        labels: {
+          padding: 20,
+          boxWidth: 15,
+          font: {
+            size: 12,
+          },
+        },
       },
       title: {
         display: true,
         text: title,
+        font: {
+          size: 16,
+        },
+      },
+    },
+    layout: {
+      padding: {
+        left: 10,
+        right: 10,
+        top: 10,
+        bottom: 10,
       },
     },
   };
 
   return (
-    <div className="p-2 bg-white rounded-lg shadow-md">
-      <Pie options={options} data={data} />
+    <div className="flex items-center justify-center h-full w-full p-2">
+      <div className="h-[85%] w-[85%]">
+        <Pie options={options} data={data} />
+      </div>
     </div>
   );
 };

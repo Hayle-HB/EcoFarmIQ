@@ -127,7 +127,7 @@ const DashBoard = () => {
         duration-500
       `}
       >
-        {/* Left Card - Adjusted padding and image size */}
+        {/* Left Card */}
         <div
           style={{ backgroundColor: "rgba(201, 250, 205, 255)" }}
           className={`
@@ -147,16 +147,16 @@ const DashBoard = () => {
             lg:p-7 
             relative
             h-auto
-            md:h-[350px]
-            lg:h-[400px]
+            md:h-[200px]
+            lg:h-[250px]
           `}
         >
-          <div className="flex flex-col justify-center w-full md:w-[45%] lg:w-[45%] mb-4 md:mb-0">
-            <div className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-gray-800 mb-4 sm:mb-6">
+          <div className="flex flex-col justify-between w-full md:w-[45%] lg:w-[45%] h-full">
+            <div className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-gray-800">
               <TypingEffect text="The future of farming is smart, sustainable, and data-driven. EcoFarmIQ is leading the way.🌱" />
             </div>
 
-            <div className="mt-3 sm:mt-4">
+            <div className="mt-auto pt-4">
               <Button variant="outline" size="sm" className="w-32 sm:w-40">
                 Get Started
               </Button>
@@ -182,13 +182,16 @@ const DashBoard = () => {
           items-center 
           justify-center
           h-[200px]
-          sm:h-[250px]
-          md:h-[350px]
-          lg:h-[400px]
+          sm:h-[150px]
+          md:h-[200px]
+          lg:h-[250px]
           p-3
           sm:p-4
+          // flex-col
+          // gap-3
         `}
         >
+          {/* <h1>NEW EVENT</h1> */}
           <Clock
             showDate={true}
             size="large"
@@ -206,7 +209,7 @@ const DashBoard = () => {
             <h2 className="text-base sm:text-lg md:text-xl font-semibold text-green-800 mb-3 sm:mb-4">
               Weather Trends
             </h2>
-            <div className="h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px]">
+            <div className="h-[200px] sm:h-[150px] md:h-[300px] lg:h-[250px]">
               <WeatherChart data={weatherData} />
             </div>
           </div>
@@ -216,7 +219,7 @@ const DashBoard = () => {
             <h2 className="text-base sm:text-lg md:text-xl font-semibold text-green-800 mb-3 sm:mb-4">
               Crop Distribution
             </h2>
-            <div className="h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px]">
+            <div className="h-[200px] sm:h-[150px] md:h-[300px] lg:h-[250px]">
               <CropDistributionChart data={cropData} />
             </div>
           </div>

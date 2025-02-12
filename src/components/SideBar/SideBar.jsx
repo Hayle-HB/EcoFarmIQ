@@ -73,7 +73,7 @@ const Sidebar = () => {
           fixed top-0 left-0 h-screen
           bg-green-900 text-white shadow-xl
           transition-all duration-300 ease-in-out
-          z-[999]
+          z-1000
           ${
             isMobile
               ? mobileMenuOpen
@@ -182,7 +182,7 @@ const Sidebar = () => {
           </nav>
         </div>
         <div className={`${isOpen ? "ml-30" : "ml-20"}`}>
-          <TopNav />
+          <TopNav isOpen={isOpen} />
         </div>
       </aside>
     </>
