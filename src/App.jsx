@@ -12,6 +12,7 @@ import { toggleSidebar } from "../src/features/sidebar/sidebarSlice.js";
 import PrivacyCard from "./components/PrivacyCard/PrivacyCard.jsx";
 import PieChartUsage from "./components/PieChart/PieChartUsage.jsx";
 import DashBoards from "./pages/DashBord/DashBoard.jsx";
+import ClockExample from "./examples/ClockExample.jsx";
 const App = () => {
   const isOpen = useSelector((state) => state.sidebar.isOpen);
   const dispatch = useDispatch();
@@ -43,13 +44,14 @@ const App = () => {
       <div className="">
         <Sidebar />
         <DashBoards />
-        <PieChartDashboard />
-
+        {/* <PieChartDashboard />
+        <ClockExample />
         <GaugeChartUsage />
         <LineChartUsage />
-        <BarChartUsage />
+        <BarChartUsage /> */}
 
-        <div
+
+        {/* <div
           className={`grid grid-cols-2 gap-4 md:grid-cols-3  ${
             isOpen ? "ml-64" : "ml-10"
           } transition-all duration-300 `}
@@ -65,9 +67,9 @@ const App = () => {
             );
           })}
         </div>
-        <PrivacyCard />
+        <PrivacyCard /> */}
       </div>
-      <PieChartUsage />
+      {/* <PieChartUsage /> */}
     </>
   );
 };
