@@ -67,12 +67,31 @@ const DashBoard = () => {
 
   return (
     <div
-      className={`${
-        isOpen ? "ml-64" : "ml-26"
-      } mt-20 h-lvh flex flex-col gap-4 items-center transform-3d transition-all duration-300`}
+      className={`
+        ${isOpen ? "ml-64" : "ml-20"}
+        sm:${isOpen ? "ml-20" : "ml-16"}
+        md:${isOpen ? "ml-64" : "ml-20"}
+        lg:${isOpen ? "ml-64" : "ml-20"}
+        mt-16 
+        min-h-screen 
+        flex 
+        flex-col 
+        gap-3
+        sm:gap-4 
+        md:gap-5 
+        lg:gap-6 
+        transform-3d 
+        transition-all 
+        duration-300
+        p-3
+        sm:p-4
+        md:p-5
+        lg:p-6
+      `}
     >
-      <div className="">
-        <h1 className="text-4xl font-bold text-green-800">
+      {/* Welcome Section - Adjusted spacing */}
+      <div className="w-full px-2 sm:px-3 md:px-4 lg:px-5">
+        <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-4xl font-bold text-green-800">
           {text.split("").map((letter, index) => (
             <motion.span
               key={index}
@@ -86,95 +105,150 @@ const DashBoard = () => {
           ))}
         </h1>
       </div>
+
+      {/* Main Grid Section - Improved spacing */}
       <div
-        className={`grid grid-cols-[2fr_1fr] gap-4 transition-all duration-500`}
+        className={`
+        grid 
+        grid-cols-1 
+        sm:grid-cols-1 
+        md:grid-cols-[2fr_1fr] 
+        lg:grid-cols-[2fr_1fr] 
+        gap-3
+        sm:gap-4 
+        md:gap-5 
+        lg:gap-6
+        w-full
+        px-2
+        sm:px-3
+        md:px-4
+        lg:px-5
+        transition-all 
+        duration-500
+      `}
       >
+        {/* Left Card - Adjusted padding and image size */}
         <div
           style={{ backgroundColor: "rgba(201, 250, 205, 255)" }}
-          className={`dash bg-green-200 h-70 ${
-            isOpen ? "w-190" : "w-220"
-          } rounded-2xl flex justify-between p-7 relative`}
+          className={`
+            dash 
+            bg-green-200 
+            rounded-xl
+            sm:rounded-2xl 
+            flex 
+            flex-col 
+            sm:flex-col 
+            md:flex-row 
+            lg:flex-row 
+            justify-between 
+            p-3
+            sm:p-4
+            md:p-6
+            lg:p-7 
+            relative
+            h-auto
+            md:h-[350px]
+            lg:h-[400px]
+          `}
         >
-          <div className="flex flex-col justify-center max-w-[45%]">
-            <div
-              id="main-animated-text"
-              className="text-xl font-bold text-gray-800 mb-6"
-              style={{ maxWidth: "100%" }}
-            >
+          <div className="flex flex-col justify-center w-full md:w-[45%] lg:w-[45%] mb-4 md:mb-0">
+            <div className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-gray-800 mb-4 sm:mb-6">
               <TypingEffect text="The future of farming is smart, sustainable, and data-driven. EcoFarmIQ is leading the way.🌱" />
             </div>
 
-            <div className="mt-4">
-              <Button variant="outline" size="sm" className="w-40">
+            <div className="mt-3 sm:mt-4">
+              <Button variant="outline" size="sm" className="w-32 sm:w-40">
                 Get Started
               </Button>
             </div>
           </div>
 
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 w-full md:w-[50%] lg:w-[50%] h-[200px] sm:h-[250px] md:h-full">
             <img
               src={svg}
               alt="Farming illustration"
-              className="w-70 rounded-2xl hover:scale-108 cursor-zoom-in transition-all duration-300"
+              className="w-full h-full object-contain md:object-cover rounded-xl sm:rounded-2xl hover:scale-105 transition-all duration-300"
             />
           </div>
         </div>
+
+        {/* Right Card - Adjusted height */}
         <div
-          className={`bg-green-200 h-70 rounded-2xl flex items-center justify-center`}
+          className={`
+          bg-green-200 
+          rounded-xl
+          sm:rounded-2xl 
+          flex 
+          items-center 
+          justify-center
+          h-[200px]
+          sm:h-[250px]
+          md:h-[350px]
+          lg:h-[400px]
+          p-3
+          sm:p-4
+        `}
         >
           <Clock
             showDate={true}
             size="large"
             theme="primary"
-            className="text-center"
+            className="text-center scale-75 sm:scale-90 md:scale-100"
           />
         </div>
       </div>
 
-      {/* Weather and Crop Statistics Section */}
-      <div className="px-6 w-full flex flex-col gap-4 ">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Charts Section - Improved responsiveness */}
+      <div className="w-full px-2 sm:px-3 md:px-4 lg:px-5 flex flex-col gap-3 sm:gap-4 md:gap-5 lg:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
           {/* Weather Chart */}
-          <div className="bg-green-50 p-4 rounded-xl">
-            <h2 className="text-xl font-semibold text-green-800 mb-4">
+          <div className="bg-green-50 p-3 sm:p-4 md:p-5 lg:p-6 rounded-xl">
+            <h2 className="text-base sm:text-lg md:text-xl font-semibold text-green-800 mb-3 sm:mb-4">
               Weather Trends
             </h2>
-            <div className="h-[300px]">
+            <div className="h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px]">
               <WeatherChart data={weatherData} />
             </div>
           </div>
 
           {/* Crop Distribution */}
-          <div className="bg-green-50 p-4 rounded-xl">
-            <h2 className="text-xl font-semibold text-green-800 mb-4">
+          <div className="bg-green-50 p-3 sm:p-4 md:p-5 lg:p-6 rounded-xl">
+            <h2 className="text-base sm:text-lg md:text-xl font-semibold text-green-800 mb-3 sm:mb-4">
               Crop Distribution
             </h2>
-            <div className="h-[300px]">
+            <div className="h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px]">
               <CropDistributionChart data={cropData} />
             </div>
           </div>
+        </div>
 
-          {/* Quick Stats */}
-          <div className="bg-green-50 p-4 rounded-xl md:col-span-2">
-            <h2 className="text-xl font-semibold text-green-800 mb-4">
-              Farm Statistics
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[
-                { label: "Total Area", value: "500 acres", icon: "🌾" },
-                { label: "Active Crops", value: "5 types", icon: "🌱" },
-                { label: "Soil Health", value: "Good", icon: "🌿" },
-                { label: "Water Usage", value: "85%", icon: "💧" },
-              ].map((stat, index) => (
-                <div key={index} className="bg-white p-4 rounded-lg shadow-sm">
-                  <div className="text-3xl mb-2">{stat.icon}</div>
-                  <div className="text-sm text-gray-600">{stat.label}</div>
-                  <div className="text-lg font-semibold text-green-700">
-                    {stat.value}
-                  </div>
+        {/* Farm Statistics - Improved grid spacing */}
+        <div className="bg-green-50 p-3 sm:p-4 md:p-5 lg:p-6 rounded-xl">
+          <h2 className="text-base sm:text-lg md:text-xl font-semibold text-green-800 mb-3 sm:mb-4">
+            Farm Statistics
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+            {[
+              { label: "Total Area", value: "500 acres", icon: "🌾" },
+              { label: "Active Crops", value: "5 types", icon: "🌱" },
+              { label: "Soil Health", value: "Good", icon: "🌿" },
+              { label: "Water Usage", value: "85%", icon: "💧" },
+            ].map((stat, index) => (
+              <div
+                key={index}
+                className="bg-white p-3 sm:p-4 rounded-lg shadow-sm"
+              >
+                <div className="text-xl sm:text-2xl md:text-3xl mb-2">
+                  {stat.icon}
                 </div>
-              ))}
-            </div>
+                <div className="text-xs sm:text-sm text-gray-600">
+                  {stat.label}
+                </div>
+                <div className="text-sm sm:text-base md:text-lg font-semibold text-green-700">
+                  {stat.value}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

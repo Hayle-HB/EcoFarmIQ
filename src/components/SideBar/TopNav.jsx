@@ -8,9 +8,9 @@ const TopNav = ({ isOpen }) => {
 
   return (
     <div
-      className={`flex justify-between bg-white  p-5 fixed left-0  top-0 ${
-        isOpen ? "-ml-30 pl-20" : "-ml-69 pl-30 "
-      } left-94 right-0  transition-all -z-10`}
+      className={`flex justify-between bg-white p-5 fixed left-0 top-0 ${
+        isOpen ? "ml-30" : "ml-20"
+      } left-94 right-0 transition-all -z-10`}
     >
       {/* Search Bar */}
       <div className="relative flex items-center">

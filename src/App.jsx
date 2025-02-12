@@ -2,20 +2,8 @@ import React, { useState } from "react";
 // import Login from "./pages/Login/Login";
 // import From from "./components/Subscribe/Subscribe";
 import Sidebar from "./components/SideBar/SideBar.jsx";
-import PieChartDashboard from "./components/SideBar/Dash.jsx";
-import GaugeChartUsage from "./components/GaugeChart/GaugeUsage.jsx";
-import LineChartUsage from "./components/LineChart/LineChartUsage.jsx";
-import BarChartUsage from "./components/BarChart/BarChartUsage.jsx";
-import TestimonialCard from "./components/Testimonial/Testimonial.jsx";
-import { useSelector, useDispatch } from "react-redux";
-import { toggleSidebar } from "../src/features/sidebar/sidebarSlice.js";
-import PrivacyCard from "./components/PrivacyCard/PrivacyCard.jsx";
-import PieChartUsage from "./components/PieChart/PieChartUsage.jsx";
 import DashBoards from "./pages/DashBord/DashBoard.jsx";
-import ClockExample from "./examples/ClockExample.jsx";
 const App = () => {
-  const isOpen = useSelector((state) => state.sidebar.isOpen);
-  const dispatch = useDispatch();
 
   const TestimonialData = [
     {
@@ -44,32 +32,8 @@ const App = () => {
       <div className="">
         <Sidebar />
         <DashBoards />
-        {/* <PieChartDashboard />
-        <ClockExample />
-        <GaugeChartUsage />
-        <LineChartUsage />
-        <BarChartUsage /> */}
-
-
-        {/* <div
-          className={`grid grid-cols-2 gap-4 md:grid-cols-3  ${
-            isOpen ? "ml-64" : "ml-10"
-          } transition-all duration-300 `}
-        >
-          {TestimonialData.map((item, index) => {
-            return (
-              <TestimonialCard
-                key={index}
-                testimonialText={item.testimonialText}
-                TestimonialName={item.TestimonialName}
-                TestimonialRating={item.TestimonialRating}
-              />
-            );
-          })}
-        </div>
-        <PrivacyCard /> */}
+       
       </div>
-      {/* <PieChartUsage /> */}
     </>
   );
 };
