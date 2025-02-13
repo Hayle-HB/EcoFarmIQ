@@ -46,7 +46,7 @@ const Navbar = () => {
       ],
     },
     { name: "Features", href: "#features" },
-    { name: "Testimonials", href: "#testimonials" },
+    { name: "Our Team", href: "#teams" }, // Testimonials
     { name: "Blog", href: "#blog" },
     { name: "About", href: "#about" },
     { name: "Contact", href: "#contact" },

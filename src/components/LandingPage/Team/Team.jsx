@@ -1,8 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Haylemeskel from "../../../assets/images/person/Haylemeskel.jpg";
-import Haylemariam from "../../../assets/images/person/Haylemaraim.png";
-import Mewal from "../../../assets/images/person/progHubs.jpg";
+import Haylemariam from "../../../assets/images/person/Hayle3.png";
+import Mewal from "../../../assets/images/person/Mewal.png";
 const Team = () => {
   const teamMembers = [
     {
@@ -20,7 +20,7 @@ const Team = () => {
     },
     {
       name: "Haylemariam Daget",
-      role: "Founder & CTO",
+      role: "Founder & co-CEO",
       position: "ElectroMechanical Engineer",
       image: Haylemariam,
       bio: "Expert in electromechanical systems driving IoT integration for precision farming.",
@@ -31,11 +31,11 @@ const Team = () => {
       },
     },
     {
-      name: "Mewal Nguse",
-      role: "Technical Advisor",
-      position: "Electro Mechanical Engineer",
+      name: "Mewal Mizan",
+      role: "Technical Advisor and Mentorship",
+      position: "Lecturer and Researcher at AASTU and Automation Engineer",
       image: Mewal,
-      bio: "Strategic advisor for hardware integration and automation systems.",
+      bio: "Strategic advisor for agricultural innovation, research, and the implementation of cutting-edge automation solutions.",
       socials: {
         linkedin: "#",
         twitter: "#",
@@ -57,7 +57,10 @@ const Team = () => {
   ];
 
   return (
-    <section id="team"className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-white via-emerald-50/30 to-white">
+    <section
+      id="teams"
+      className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-white via-emerald-50/30 to-white"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
