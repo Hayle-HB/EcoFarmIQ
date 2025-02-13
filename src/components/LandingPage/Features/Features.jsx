@@ -41,58 +41,60 @@ const Features = () => {
   ];
 
   return (
-    <section id="features" className="h-screen bg-gradient-to-b from-green-50/40 to-white flex flex-col justify-center">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section
+      id="features"
+      className="min-h-screen bg-gradient-to-b from-green-50/40 to-white flex flex-col justify-center mt-2 md:mt-0 border-t-2 md:border-t-cyan-300 border-gray-200"
+    > {/* 100 */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-[95%] sm:w-full py-12 sm:py-16 lg:py-20">
         {/* Section Header */}
         <motion.div
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12 lg:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl font-bold text-gray-900 mb-3">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
             Innovative <span className="text-green-600">Features</span>
           </h2>
-          <div className="w-20 h-1 bg-green-500 mx-auto rounded-full mb-4" />
-          <p className="text-xl font-bold text-gray-600 max-w-2xl mx-auto font-mono">
+          <div className="w-16 sm:w-20 h-1 bg-green-500 mx-auto rounded-full mb-4" />
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto font-mono">
             Discover how our cutting-edge technology transforms traditional
             farming into a sustainable and profitable venture
           </p>
         </motion.div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {features.map((feature, index) => (
             <motion.div
               key={index}
               className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 
-                overflow-hidden border border-gray-100 hover:border-green-100"
+                overflow-hidden border border-gray-100 hover:border-green-100 h-full"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               {/* Feature Image */}
-              <div className="relative h-50 overflow-hidden">
+              <div className="relative h-40 sm:h-48 overflow-hidden">
                 <motion.img
                   src={feature.image}
                   alt={feature.title}
-                  className="w-full h-full object-cover transform grayscale-0
-                    group-hover:grayscale-100 group-hover:scale-110 
+                  className="w-full h-full object-cover transform group-hover:scale-110 
                     transition-all duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent" />
                 <div className="absolute inset-0 bg-green-600/10 group-hover:bg-transparent transition-colors duration-300" />
-                <span className="absolute top-3 right-3 text-3xl filter drop-shadow-lg">
+                <span className="absolute top-3 right-3 text-2xl sm:text-3xl filter drop-shadow-lg">
                   {feature.icon}
                 </span>
               </div>
 
               {/* Feature Content */}
-              <div className="p-5">
+              <div className="p-4 sm:p-5 flex flex-col h-full">
                 <h3
-                  className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-green-600 
+                  className="text-base sm:text-lg font-semibold text-gray-900 mb-2 group-hover:text-green-600 
                   transition-colors duration-300 flex items-center gap-2"
                 >
                   {feature.title}
@@ -102,11 +104,11 @@ const Features = () => {
                 </p>
 
                 {/* Benefits List */}
-                <ul className="space-y-2">
+                <ul className="space-y-2 mb-4">
                   {feature.benefits.map((benefit, benefitIndex) => (
                     <motion.li
                       key={benefitIndex}
-                      className="flex items-center text-sm text-gray-700"
+                      className="flex items-center text-xs sm:text-sm text-gray-700"
                       initial={{ opacity: 0, x: -10 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
@@ -120,7 +122,7 @@ const Features = () => {
 
                 {/* Learn More Button */}
                 <motion.button
-                  className="mt-4 w-full py-2.5 bg-gray-50 text-gray-600 rounded-lg text-sm font-medium
+                  className="mt-auto w-full py-2 sm:py-2.5 bg-gray-50 text-gray-600 rounded-lg text-xs sm:text-sm font-medium
                     transition-all duration-300 hover:bg-green-600 hover:text-white group relative 
                     overflow-hidden border border-gray-200 hover:border-green-600"
                   whileHover={{ scale: 1.02 }}

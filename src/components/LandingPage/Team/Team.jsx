@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Haylemeskel from "../../../assets/images/person/Haylemeskel.jpg";
 import Haylemariam from "../../../assets/images/person/Haylemaraim.png";
-
+import Mewal from "../../../assets/images/person/progHubs.jpg";
 const Team = () => {
   const teamMembers = [
     {
@@ -34,7 +34,7 @@ const Team = () => {
       name: "Mewal Nguse",
       role: "Technical Advisor",
       position: "Electro Mechanical Engineer",
-      image: Haylemeskel,
+      image: Mewal,
       bio: "Strategic advisor for hardware integration and automation systems.",
       socials: {
         linkedin: "#",
@@ -57,24 +57,24 @@ const Team = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-white via-emerald-50/30 to-white">
+    <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-white via-emerald-50/30 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 lg:mb-16"
         >
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
             Meet Our <span className="text-emerald-600">Expert Team</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4 sm:px-6">
             Pioneering smart agricultural solutions through innovative
             technology and expertise.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
           {teamMembers.map((member, index) => (
             <motion.div
               key={member.name}
@@ -90,17 +90,17 @@ const Team = () => {
               >
                 {/* Image Container */}
                 {member.image === "none" ? (
-                  <div className="relative h-80 overflow-hidden bg-gradient-to-br from-emerald-900 to-emerald-700">
+                  <div className="relative h-40 sm:h-44 md:h-48 lg:h-50 overflow-hidden bg-gradient-to-br from-emerald-900 to-emerald-700">
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-white text-center">
+                      <div className="text-white text-center p-4">
                         <div className="rotate-[-12deg] transform">
-                          <h3 className="text-4xl font-bold mb-4">
+                          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 sm:mb-4">
                             Come Join Us!
                           </h3>
-                          <p className="text-xl font-medium text-emerald-200">
+                          <p className="text-lg sm:text-xl font-medium text-emerald-200">
                             Shape the Future of
                           </p>
-                          <p className="text-xl font-medium text-emerald-200">
+                          <p className="text-lg sm:text-xl font-medium text-emerald-200">
                             Smart Agriculture
                           </p>
                         </div>
@@ -108,7 +108,7 @@ const Team = () => {
                     </div>
                   </div>
                 ) : (
-                  <div className="relative h-80 overflow-hidden">
+                  <div className="relative h-40 sm:h-44 md:h-48 lg:h-50 overflow-hidden">
                     <div
                       className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent 
                       opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -121,16 +121,16 @@ const Team = () => {
                     />
                     {/* Social Links Overlay */}
                     <div
-                      className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full 
+                      className="absolute bottom-0 left-0 right-0 p-2 sm:p-4 transform translate-y-full 
                       group-hover:translate-y-0 transition-transform duration-300"
                     >
-                      <div className="flex justify-center space-x-4">
+                      <div className="flex justify-center space-x-3 sm:space-x-4">
                         <a
                           href={member.socials.linkedin}
                           className="text-white hover:text-emerald-400 transition-colors duration-300"
                         >
                           <svg
-                            className="w-6 h-6"
+                            className="w-5 h-5 sm:w-6 sm:h-6"
                             fill="currentColor"
                             viewBox="0 0 24 24"
                           >
@@ -142,7 +142,7 @@ const Team = () => {
                           className="text-white hover:text-emerald-400 transition-colors duration-300"
                         >
                           <svg
-                            className="w-6 h-6"
+                            className="w-5 h-5 sm:w-6 sm:h-6"
                             fill="currentColor"
                             viewBox="0 0 24 24"
                           >
@@ -154,7 +154,7 @@ const Team = () => {
                           className="text-white hover:text-emerald-400 transition-colors duration-300"
                         >
                           <svg
-                            className="w-6 h-6"
+                            className="w-5 h-5 sm:w-6 sm:h-6"
                             fill="currentColor"
                             viewBox="0 0 24 24"
                           >
@@ -166,17 +166,44 @@ const Team = () => {
                   </div>
                 )}
                 {/* Content */}
-                <div className="p-6 flex-grow flex flex-col">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-1">
+                <div className="p-3 sm:p-4 flex-grow flex flex-col">
+                  <h4 className="text-base sm:text-lg font-semibold text-zinc-900 mb-1">
                     {member.name}
-                  </h3>
-                  <p className="text-emerald-600 font-medium mb-2">
+                  </h4>
+                  <p className="text-sm sm:text-base text-emerald-600 font-medium mb-1 sm:mb-2">
                     {member.role}
                   </p>
-                  <p className="text-emerald-700 font-medium mb-3 text-sm">
+                  <p className="text-xs sm:text-sm text-emerald-700 font-medium mb-2 sm:mb-3">
                     {member.position}
                   </p>
-                  <p className="text-gray-600 text-sm">{member.bio}</p>
+                  <p className="text-xs sm:text-sm text-gray-600">
+                    {member.bio}
+                  </p>
+                  {member.image !== "none" && (
+                    <div className="mt-auto pt-2 sm:pt-4">
+                      <a
+                        href="#"
+                        className="inline-flex items-center text-emerald-600 hover:text-emerald-700 
+                          text-sm sm:text-base group/more"
+                      >
+                        More
+                        <svg
+                          className="w-3 h-3 sm:w-4 sm:h-4 ml-1 transform transition-transform 
+                            duration-300 group-hover/more:translate-x-1"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M13 7l5 5m0 0l-5 5m5-5H6"
+                          />
+                        </svg>
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
             </motion.div>

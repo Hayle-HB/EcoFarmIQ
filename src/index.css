@@ -6,9 +6,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* body {
-  background-color: rgb(35, 35, 52);
-} */
 
 @theme {
   --roboto--: "Atkinson Hyperlegible", sans-serif;

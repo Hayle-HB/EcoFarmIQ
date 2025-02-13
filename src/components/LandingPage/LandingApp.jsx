@@ -18,8 +18,8 @@ const LandingPage = () => {
       <Gallery />
       <BlogPreview />
       <Contact />
-      <Footer />
       <Team />
+      <Footer />
       {/* Other sections */}
     </div>
   );
