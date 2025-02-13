@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useNavigate, useLocation } from "react-router-dom";
 import logo from "../../../assets/svg/ecofarm.svg";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const navItems = [
     {
@@ -67,6 +70,26 @@ const Navbar = () => {
     setActiveDropdown(null);
   };
 
+  const handleNavigation = (href) => {
+    if (location.pathname !== "/") {
+      navigate("/", { state: { scrollTo: href.substring(1) } });
+    } else {
+      const element = document.getElementById(href.substring(1));
+      element?.scrollIntoView({ behavior: "smooth" });
+    }
+    setIsMenuOpen(false);
+  };
+
+  // Add effect to handle scrolling when returning to home page
+  useEffect(() => {
+    if (location.state?.scrollTo) {
+      const element = document.getElementById(location.state.scrollTo);
+      element?.scrollIntoView({ behavior: "smooth" });
+      // Clear the state
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
+
   return (
     <nav
       className={`fixed w-full z-[1000] transition-all duration-300 ${
@@ -74,7 +97,7 @@ const Navbar = () => {
       } top-0`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20"> 
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
           {/* <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -90,7 +113,11 @@ const Navbar = () => {
             </span>
           </motion.div> */}
 
-          <img src={logo} alt="EcoFarmIQ" className="w-50 h-100  -ml-10 hover:scale-110 transition duration-300" />
+          <img
+            src={logo}
+            alt="EcoFarmIQ"
+            className="w-50 h-100  -ml-10 hover:scale-110 transition duration-300"
+          />
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
@@ -105,9 +132,9 @@ const Navbar = () => {
                 onMouseLeave={handleDropdownLeave}
               >
                 <a
-                  href={item.href}
+                  onClick={() => item.href && handleNavigation(item.href)}
                   className="text-gray-700 font-medium transition-colors duration-300
-                    hover:text-[#40e0d0] py-2"
+                    hover:text-[#40e0d0] py-2 cursor-pointer"
                 >
                   {item.name}
                   {item.dropdown && (
@@ -134,10 +161,10 @@ const Navbar = () => {
                       {item.dropdown.map((subItem) => (
                         <a
                           key={subItem.name}
-                          href={subItem.href}
+                          onClick={() => handleNavigation(subItem.href)}
                           className="block px-4 py-3 text-sm text-gray-700 hover:bg-gradient-to-r 
                             hover:from-[#00ffff]/10 hover:to-[#ffd700]/10 hover:text-[#40e0d0]
-                            transition-all duration-300"
+                            transition-all duration-300 cursor-pointer"
                         >
                           {subItem.name}
                         </a>
@@ -153,6 +180,7 @@ const Navbar = () => {
               animate={{ opacity: 1, scale: 1 }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => navigate("/login")}
               className="bg-gradient-to-r from-[#00ffff] to-[#ffd700] text-gray-900 
                 px-6 py-2 rounded-full font-medium hover:from-[#ffd700] hover:to-[#00ffff] 
                 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
@@ -218,10 +246,9 @@ const Navbar = () => {
           {navItems.map((item, index) => (
             <div key={item.name}>
               <a
-                href={item.href}
+                onClick={() => item.href && handleNavigation(item.href)}
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700
                   hover:text-[#40e0d0] hover:bg-gray-50 transition-all duration-300"
-                onClick={() => item.dropdown && handleDropdownEnter(index)}
               >
                 {item.name}
                 {item.dropdown && <span className="ml-1 inline-block">▼</span>}
@@ -233,7 +260,7 @@ const Navbar = () => {
                   {item.dropdown.map((subItem) => (
                     <a
                       key={subItem.name}
-                      href={subItem.href}
+                      onClick={() => handleNavigation(subItem.href)}
                       className="block px-3 py-2 text-sm text-gray-600
                         hover:text-[#40e0d0] transition-colors duration-300"
                     >
@@ -244,13 +271,19 @@ const Navbar = () => {
               )}
             </div>
           ))}
-          <button
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => {
+              navigate("/login");
+              setIsMenuOpen(false);
+            }}
             className="w-full mt-4 bg-gradient-to-r from-[#00ffff] to-[#ffd700] 
-            text-gray-900 px-3 py-2 rounded-full font-medium hover:from-[#ffd700] 
-            hover:to-[#00ffff] transition-all duration-300"
+              text-gray-900 px-3 py-2 rounded-full font-medium hover:from-[#ffd700] 
+              hover:to-[#00ffff] transition-all duration-300 shadow-md hover:shadow-lg"
           >
             Get Started
-          </button>
+          </motion.button>
         </div>
       </motion.div>
     </nav>

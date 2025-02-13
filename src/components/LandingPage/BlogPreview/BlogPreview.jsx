@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 const BlogPreview = () => {
+  const [activeArticle, setActiveArticle] = useState(1); // Initialize with first article
+
   const blogs = [
     {
       id: 1,
@@ -55,110 +57,134 @@ const BlogPreview = () => {
   ];
 
   return (
-    <section id="blog" className="bg-gradient-to-b from-white to-green-50/40 py-20">
+    <section
+      id="blog"
+      className="bg-gradient-to-b from-white to-green-50/40 py-12 sm:py-16 md:py-20"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
         >
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
             Latest <span className="text-green-600">Insights</span>
           </h2>
-          <p className="text-lg text-gray-600">
+          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
             In-depth analysis and research in agricultural technology
           </p>
         </motion.div>
 
-        <div className="space-y-12">
+        <div className="space-y-6 sm:space-y-8 md:space-y-12">
           {blogs.map((blog, index) => (
             <motion.article
               key={blog.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: index * 0.1 }}
-              className="group relative p-6 rounded-xl overflow-hidden"
+              onClick={() => setActiveArticle(blog.id)}
+              className={`group relative p-4 sm:p-6 rounded-xl overflow-hidden 
+                ${activeArticle === blog.id ? "bg-white/70" : "bg-white/50"} 
+                backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer`}
             >
+              {/* Background Animation - Only visible for active article */}
               <div className="absolute inset-0 overflow-hidden">
                 <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 
-                  transition-opacity duration-700 ease-out"
+                  className={`absolute inset-0 transition-opacity duration-700 ease-out
+                  ${activeArticle === blog.id ? "opacity-100" : "opacity-0"}`}
                 >
                   <div
                     className="absolute -inset-[100%] bg-gradient-to-r from-green-50/50 
-                    via-emerald-50/50 to-teal-50/50 rounded-[100%] group-hover:animate-spin-slow"
+                    via-emerald-50/50 to-teal-50/50 rounded-[100%] animate-spin-slow"
                   />
                 </div>
               </div>
 
+              {/* Border Animations - Only active for selected article */}
               <div className="absolute inset-0">
                 <div
-                  className="absolute left-0 top-0 w-0.5 h-0 bg-gradient-to-b 
-                  from-green-600 via-emerald-500 to-teal-600 group-hover:h-full 
-                  transition-all duration-700 ease-out"
+                  className={`absolute left-0 top-0 w-0.5 bg-gradient-to-b 
+                  from-green-600 via-emerald-500 to-teal-600 transition-all duration-700 ease-out
+                  ${activeArticle === blog.id ? "h-full" : "h-0"}`}
                 />
-
                 <div
-                  className="absolute left-0 top-0 h-0.5 w-0 bg-gradient-to-r 
-                  from-green-600 via-emerald-500 to-teal-600 group-hover:w-full 
-                  transition-all duration-700 ease-out"
+                  className={`absolute left-0 top-0 h-0.5 bg-gradient-to-r 
+                  from-green-600 via-emerald-500 to-teal-600 transition-all duration-700 ease-out
+                  ${activeArticle === blog.id ? "w-full" : "w-0"}`}
                 />
-
                 <div
-                  className="absolute right-0 top-1/2 h-0.5 w-0 bg-gradient-to-l 
-                  from-teal-600 to-emerald-500 group-hover:w-6 -translate-y-1/2 
-                  transition-all duration-300 ease-out delay-500"
+                  className={`absolute right-0 top-1/2 h-0.5 bg-gradient-to-l 
+                  from-teal-600 to-emerald-500 -translate-y-1/2 transition-all duration-300 ease-out
+                  ${activeArticle === blog.id ? "w-6" : "w-0"}`}
                 />
               </div>
 
-              <div className="pl-6 relative">
-                <div className="flex items-center text-sm text-gray-500 mb-3 space-x-4">
+              <div className="pl-3 sm:pl-6 relative">
+                <div className="flex flex-wrap items-center text-sm text-gray-500 mb-2 sm:mb-3 gap-2 sm:gap-4">
                   <span
-                    className="bg-gradient-to-r from-green-100 to-emerald-100 
-                    text-green-800 px-2.5 py-0.5 rounded-full text-xs font-medium 
-                    group-hover:from-green-200 group-hover:to-emerald-200 
-                    transition-all duration-300"
+                    className={`bg-gradient-to-r from-green-100 to-emerald-100 
+                    text-green-800 px-2 py-0.5 rounded-full text-xs font-medium transition-all duration-300
+                    ${
+                      activeArticle === blog.id
+                        ? "from-green-200 to-emerald-200"
+                        : ""
+                    }`}
                   >
                     {blog.category}
                   </span>
-                  <span>{blog.date}</span>
-                  <span>{blog.readTime}</span>
+                  <span className="text-xs sm:text-sm">{blog.date}</span>
+                  <span className="text-xs sm:text-sm">{blog.readTime}</span>
                 </div>
 
                 <h3
-                  className="text-2xl font-semibold text-gray-900 mb-3 
-                  group-hover:text-emerald-700 transition-colors duration-300"
+                  className={`text-xl sm:text-2xl font-semibold mb-2 sm:mb-3 
+                  transition-colors duration-300 line-clamp-2
+                  ${
+                    activeArticle === blog.id
+                      ? "text-emerald-700"
+                      : "text-gray-900"
+                  }`}
                 >
                   {blog.title}
                 </h3>
 
                 <p
-                  className="text-gray-600 mb-4 line-clamp-2 leading-relaxed 
-                  group-hover:text-gray-700 transition-colors duration-300"
+                  className={`text-sm sm:text-base mb-3 sm:mb-4 line-clamp-2 
+                  leading-relaxed transition-colors duration-300
+                  ${
+                    activeArticle === blog.id
+                      ? "text-gray-700"
+                      : "text-gray-600"
+                  }`}
                 >
                   {blog.description}
                 </p>
 
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
                   <div className="flex items-center space-x-4">
                     <div>
                       <p className="text-sm font-medium text-gray-900">
                         {blog.author}
                       </p>
-                      <p className="text-sm text-gray-500">{blog.role}</p>
+                      <p className="text-xs sm:text-sm text-gray-500">
+                        {blog.role}
+                      </p>
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {blog.tags.map((tag, tagIndex) => (
                       <span
                         key={tagIndex}
-                        className="text-xs text-gray-500 border border-gray-200 
-                          rounded-full px-2.5 py-0.5 hover:border-emerald-500 
-                          hover:text-aqua-600 transition-colors duration-300
-                          group-hover:border-emerald-200 group-hover:bg-black group-hover:text-white hover:text-blue-300"
+                        className={`text-xs border rounded-full px-2 py-0.5 
+                          transition-colors duration-300
+                          ${
+                            activeArticle === blog.id
+                              ? "border-emerald-200 bg-emerald-900 text-white"
+                              : "text-gray-500 border-gray-200 hover:border-emerald-500"
+                          }`}
                       >
                         #{tag}
                       </span>
@@ -174,16 +200,34 @@ const BlogPreview = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mt-16"
+          className="text-center mt-8 sm:mt-12 md:mt-16"
         >
-          <button
-            className="px-8 py-3 bg-white border-2 border-emerald-600 
-            text-emerald-600 rounded-full font-medium hover:bg-gradient-to-r 
-            hover:from-green-600 hover:to-emerald-600 hover:text-white 
-            transition-all duration-300 shadow-sm hover:shadow-md"
+          <motion.button
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0 10px 20px rgba(4, 120, 87, 0.15)",
+            }}
+            whileTap={{ scale: 0.95 }}
+            transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 17,
+            }}
+            className="group relative px-6 sm:px-8 py-2.5 sm:py-3 bg-white overflow-hidden
+              border-2 border-emerald-600 text-emerald-600 rounded-full text-sm sm:text-base 
+              font-medium shadow-sm transition-all duration-300"
           >
-            View All Articles
-          </button>
+            <span
+              className="relative z-10 transition-colors duration-300 
+              group-hover:text-white"
+            >
+              View All Articles
+            </span>
+            <div
+              className="absolute inset-0 bg-gradient-to-r from-green-600 to-emerald-600 
+              -translate-x-full group-hover:translate-x-0 transition-transform duration-300"
+            />
+          </motion.button>
         </motion.div>
       </div>
     </section>

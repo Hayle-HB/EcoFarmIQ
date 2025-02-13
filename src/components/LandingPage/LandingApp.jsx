@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./Navbar/Navbar";
 import Header from "./Header/Header";
 import About from "./About/About";
@@ -8,21 +9,34 @@ import BlogPreview from "./BlogPreview/BlogPreview";
 import Footer from "./Footer/Footer";
 import Contact from "./Contact/Contact";
 import Team from "./Team/Team";
-const LandingPage = () => {
+import Login from "../Auth/Login";
+
+const MainContent = () => (
+  <>
+    <Header />
+    <About />
+    <Features />
+    <Gallery />
+    <BlogPreview />
+    <Contact />
+    <Team />
+    <Footer />
+  </>
+);
+
+const LandingApp = () => {
   return (
-    <div className="relative min-h-screen">
-      <Navbar />
-      <Header />
-      <About />
-      <Features />
-      <Gallery />
-      <BlogPreview />
-      <Contact />
-      <Team />
-      <Footer />
-      {/* Other sections */}
-    </div>
+    <Router>
+      <div className="relative min-h-screen">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<MainContent />} />
+          <Route path="/login" element={<Login />} />
+          {/* Add more routes as needed */}
+        </Routes>
+      </div>
+    </Router>
   );
 };
 
-export default LandingPage;
+export default LandingApp;
