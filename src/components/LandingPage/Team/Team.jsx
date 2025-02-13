@@ -1,8 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import Haylemeskel from "../../../assets/images/person/Haylemeskel.jpg";
 import Haylemariam from "../../../assets/images/person/Hayle3.png";
 import Mewal from "../../../assets/images/person/Mewal.png";
+
 const Team = () => {
   const teamMembers = [
     {
@@ -26,8 +28,8 @@ const Team = () => {
       bio: "Expert in electromechanical systems driving IoT integration for precision farming.",
       socials: {
         linkedin: "https://www.linkedin.com/in/haylemaryam-daget-64418023a/",
-        twitter: "https://x.com/Hayle_HB",
-        github: "https://github.com/Hayle-HB",
+        twitter: "#",
+        github: "#",
       },
     },
     {
@@ -37,9 +39,9 @@ const Team = () => {
       image: Mewal,
       bio: "Strategic advisor for agricultural innovation, research, and the implementation of cutting-edge automation solutions.",
       socials: {
-        linkedin: "#",
+        linkedin: "linkedin.com/in/mewael-mizan-375a32138",
         twitter: "#",
-        github: "https://github.com/Hayle-HB",
+        github: "#",
       },
     },
     {
@@ -129,7 +131,12 @@ const Team = () => {
                     >
                       <div className="flex justify-center space-x-3 sm:space-x-4">
                         <a
-                          href={member.socials.linkedin}
+                          href={`https://${member.socials.linkedin.replace(
+                            /^https?:\/\//,
+                            ""
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="text-white hover:text-emerald-400 transition-colors duration-300"
                         >
                           <svg
@@ -141,7 +148,12 @@ const Team = () => {
                           </svg>
                         </a>
                         <a
-                          href={member.socials.twitter}
+                          href={`https://${member.socials.twitter.replace(
+                            /^https?:\/\//,
+                            ""
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="text-white hover:text-emerald-400 transition-colors duration-300"
                         >
                           <svg
@@ -153,7 +165,12 @@ const Team = () => {
                           </svg>
                         </a>
                         <a
-                          href={member.socials.github}
+                          href={`https://${member.socials.github.replace(
+                            /^https?:\/\//,
+                            ""
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="text-white hover:text-emerald-400 transition-colors duration-300"
                         >
                           <svg
@@ -184,8 +201,10 @@ const Team = () => {
                   </p>
                   {member.image !== "none" && (
                     <div className="mt-auto pt-2 sm:pt-4">
-                      <a
-                        href="#"
+                      <Link
+                        to={`/team/${member.name
+                          .toLowerCase()
+                          .replace(/\s+/g, "-")}`}
                         className="inline-flex items-center text-emerald-600 hover:text-emerald-700 
                           text-sm sm:text-base group/more"
                       >
@@ -204,7 +223,7 @@ const Team = () => {
                             d="M13 7l5 5m0 0l-5 5m5-5H6"
                           />
                         </svg>
-                      </a>
+                      </Link>
                     </div>
                   )}
                 </div>
