@@ -1,94 +1,177 @@
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import logo from "../../../assets/svg/ecofarm.svg";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+
+  const navItems = [
+    {
+      name: "Home",
+      href: "#home",
+    },
+    {
+      name: "Solutions",
+      dropdown: [
+        { name: "Smart Farming", href: "#smart-farming" },
+        { name: "IoT Integration", href: "#iot" },
+        { name: "Data Analytics", href: "#analytics" },
+        { name: "Precision Agriculture", href: "#precision" },
+        { name: "Sustainability", href: "#sustainability" },
+      ],
+    },
+    {
+      name: "Products",
+      dropdown: [
+        { name: "Sensor Networks", href: "#sensors" },
+        { name: "Farm Management", href: "#management" },
+        { name: "Weather Forecasting", href: "#weather" },
+        { name: "Crop Monitoring", href: "#monitoring" },
+        { name: "Mobile Apps", href: "#apps" },
+      ],
+    },
+    {
+      name: "Resources",
+      dropdown: [
+        { name: "Documentation", href: "#docs" },
+        { name: "API Reference", href: "#api" },
+        { name: "Case Studies", href: "#cases" },
+        { name: "Webinars", href: "#webinars" },
+        { name: "Research Papers", href: "#research" },
+      ],
+    },
+    { name: "Features", href: "#features" },
+    { name: "Testimonials", href: "#testimonials" },
+    { name: "Blog", href: "#blog" },
+    { name: "About", href: "#about" },
+    { name: "Contact", href: "#contact" },
+  ];
 
   // Handle navbar background on scroll
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 20);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleDropdownEnter = (index) => {
+    setActiveDropdown(index);
+  };
+
+  const handleDropdownLeave = () => {
+    setActiveDropdown(null);
+  };
+
   return (
     <nav
       className={`fixed w-full z-[1000] transition-all duration-300 ${
-        isScrolled
-          ? "bg-white shadow-md"
-          : "backdrop-blur-sm bg-white"
+        isScrolled ? "bg-white/80 backdrop-blur-lg shadow-lg" : "bg-transparent"
       } top-0`}
-
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-20"> 
           {/* Logo */}
-          <div className="flex-shrink-0 flex items-center">
-            {/* <img
-              className="h-10 w-auto"
-              src="/assets/images/agri/logo.png"
-              alt="EcoFarmIQ"
-            /> */}
-            <span className="ml-2 text-2xl font-bold text-green-700">
+          {/* <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="flex-shrink-0 flex items-center"
+          >
+            <span
+              className="text-3xl font-bold bg-gradient-to-r from-[#00ffff] via-[#40e0d0] to-[#ffd700] 
+              bg-clip-text text-transparent hover:from-[#ffd700] hover:via-[#40e0d0] hover:to-[#00ffff] 
+              transition-all duration-500 cursor-pointer"
+            >
               EcoFarmIQ
             </span>
-          </div>
+          </motion.div> */}
+
+          <img src={logo} alt="EcoFarmIQ" className="w-50 h-100  -ml-10 hover:scale-110 transition duration-300" />
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <a
-              href="#home"
-              className="text-gray-700 hover:text-green-600 transition-colors duration-300 font-medium"
+            {navItems.map((item, index) => (
+              <motion.div
+                key={item.name}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="relative group"
+                onMouseEnter={() => item.dropdown && handleDropdownEnter(index)}
+                onMouseLeave={handleDropdownLeave}
+              >
+                <a
+                  href={item.href}
+                  className="text-gray-700 font-medium transition-colors duration-300
+                    hover:text-[#40e0d0] py-2"
+                >
+                  {item.name}
+                  {item.dropdown && (
+                    <span className="ml-1 inline-block">▼</span>
+                  )}
+                  <span
+                    className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#00ffff] to-[#40e0d0] 
+                    group-hover:w-full transition-all duration-300"
+                  />
+                  <span
+                    className="absolute -bottom-1 right-0 w-0 h-0.5 bg-gradient-to-l from-[#40e0d0] to-[#ffd700] 
+                    group-hover:w-full transition-all duration-300 delay-150"
+                  />
+                </a>
+
+                {/* Dropdown Menu */}
+                {item.dropdown && activeDropdown === index && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="absolute left-0 mt-2 w-56 rounded-xl bg-white shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden"
+                  >
+                    <div className="py-2">
+                      {item.dropdown.map((subItem) => (
+                        <a
+                          key={subItem.name}
+                          href={subItem.href}
+                          className="block px-4 py-3 text-sm text-gray-700 hover:bg-gradient-to-r 
+                            hover:from-[#00ffff]/10 hover:to-[#ffd700]/10 hover:text-[#40e0d0]
+                            transition-all duration-300"
+                        >
+                          {subItem.name}
+                        </a>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </motion.div>
+            ))}
+
+            <motion.button
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-gradient-to-r from-[#00ffff] to-[#ffd700] text-gray-900 
+                px-6 py-2 rounded-full font-medium hover:from-[#ffd700] hover:to-[#00ffff] 
+                transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
             >
-              Home
-            </a>
-            <a
-              href="#about"
-              className="text-gray-700 hover:text-green-600 transition-colors duration-300 font-medium"
-            >
-              About
-            </a>
-            <a
-              href="#features"
-              className="text-gray-700 hover:text-green-600 transition-colors duration-300 font-medium"
-            >
-              Features
-            </a>
-            <a
-              href="#testimonials"
-              className="text-gray-700 hover:text-green-600 transition-colors duration-300 font-medium"
-            >
-              Testimonials
-            </a>
-            <a
-              href="#blog"
-              className="text-gray-700 hover:text-green-600 transition-colors duration-300 font-medium"
-            >
-              Blog
-            </a>
-            <button className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors duration-300 font-medium">
               Get Started
-            </button>
+            </motion.button>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-green-600 focus:outline-none"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 
+                hover:text-[#40e0d0] focus:outline-none transition-colors duration-300"
             >
               <span className="sr-only">Open main menu</span>
               {!isMenuOpen ? (
                 <svg
                   className="block h-6 w-6"
-                  xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -103,7 +186,6 @@ const Navbar = () => {
               ) : (
                 <svg
                   className="block h-6 w-6"
-                  xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -121,50 +203,56 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <div
-        className={`md:hidden transition-all duration-300 ease-in-out ${
+      {/* Mobile Menu with Dropdowns */}
+      <motion.div
+        initial={false}
+        animate={
           isMenuOpen
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 -translate-y-full hidden"
-        }`}
+            ? { height: "auto", opacity: 1 }
+            : { height: 0, opacity: 0 }
+        }
+        transition={{ duration: 0.3 }}
+        className={`md:hidden overflow-hidden bg-white/80 backdrop-blur-lg`}
       >
-        <div className="px-2 pt-2 pb-3 space-y-1 bg-white shadow-lg">
-          <a
-            href="#home"
-            className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-green-600 hover:bg-gray-50"
+        <div className="px-4 pt-2 pb-3 space-y-1">
+          {navItems.map((item, index) => (
+            <div key={item.name}>
+              <a
+                href={item.href}
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700
+                  hover:text-[#40e0d0] hover:bg-gray-50 transition-all duration-300"
+                onClick={() => item.dropdown && handleDropdownEnter(index)}
+              >
+                {item.name}
+                {item.dropdown && <span className="ml-1 inline-block">▼</span>}
+              </a>
+
+              {/* Mobile Dropdown */}
+              {item.dropdown && activeDropdown === index && (
+                <div className="pl-4">
+                  {item.dropdown.map((subItem) => (
+                    <a
+                      key={subItem.name}
+                      href={subItem.href}
+                      className="block px-3 py-2 text-sm text-gray-600
+                        hover:text-[#40e0d0] transition-colors duration-300"
+                    >
+                      {subItem.name}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+          <button
+            className="w-full mt-4 bg-gradient-to-r from-[#00ffff] to-[#ffd700] 
+            text-gray-900 px-3 py-2 rounded-full font-medium hover:from-[#ffd700] 
+            hover:to-[#00ffff] transition-all duration-300"
           >
-            Home
-          </a>
-          <a
-            href="#about"
-            className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-green-600 hover:bg-gray-50"
-          >
-            About
-          </a>
-          <a
-            href="#features"
-            className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-green-600 hover:bg-gray-50"
-          >
-            Features
-          </a>
-          <a
-            href="#testimonials"
-            className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-green-600 hover:bg-gray-50"
-          >
-            Testimonials
-          </a>
-          <a
-            href="#blog"
-            className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-green-600 hover:bg-gray-50"
-          >
-            Blog
-          </a>
-          <button className="w-full text-center px-3 py-2 rounded-md text-base font-medium text-white bg-green-600 hover:bg-green-700">
             Get Started
           </button>
         </div>
-      </div>
+      </motion.div>
     </nav>
   );
 };

@@ -1,0 +1,97 @@
+<svg width="200" height="50" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+  <!-- Leaf Animation -->
+  <path d="M30 25C30 15 40 5 50 5C50 15 40 25 30 25Z" fill="none" stroke="#4ade80">
+    <animate
+      attributeName="d"
+      dur="3s"
+      repeatCount="indefinite"
+      values="
+        M30 25C30 15 40 5 50 5C50 15 40 25 30 25Z;
+        M30 25C30 20 35 10 45 5C50 15 45 25 30 25Z;
+        M30 25C30 15 40 5 50 5C50 15 40 25 30 25Z"
+    />
+    <animate
+      attributeName="stroke"
+      dur="3s"
+      repeatCount="indefinite"
+      values="#4ade80;#059669;#4ade80"
+    />
+  </path>
+
+  <!-- Tech Circuit Lines -->
+  <path d="M55 25h15" stroke="#059669" stroke-width="2" stroke-linecap="round">
+    <animate
+      attributeName="stroke-dasharray"
+      dur="2s"
+      repeatCount="indefinite"
+      values="0,20;20,0;0,20"
+    />
+  </path>
+
+  <!-- Text Animation -->
+  <text x="80" y="32" font-family="Arial" font-weight="bold" font-size="24">
+    <tspan fill="#059669">Eco</tspan>
+    <tspan fill="#4ade80">Farm</tspan>
+    <tspan fill="#065f46">IQ</tspan>
+    <animate
+      attributeName="font-size"
+      dur="3s"
+      repeatCount="indefinite"
+      values="24;25;24"
+    />
+  </text>
+
+  <!-- Rotating Gear -->
+  <g transform="translate(160, 25)">
+    <path d="M0,-8 L2,-3 L7,-3 L4,1 L5,6 L0,3 L-5,6 L-4,1 L-7,-3 L-2,-3 Z" 
+      fill="#065f46">
+      <animateTransform
+        attributeName="transform"
+        type="rotate"
+        from="0"
+        to="360"
+        dur="4s"
+        repeatCount="indefinite"
+      />
+    </path>
+  </g>
+
+  <!-- Growing Plant Stem -->
+  <path d="M30 45L30 25" stroke="#4ade80" stroke-width="2">
+    <animate
+      attributeName="d"
+      dur="2s"
+      repeatCount="indefinite"
+      values="M30 45L30 35;M30 45L30 25;M30 45L30 35"
+    />
+  </path>
+
+  <!-- Root System -->
+  <path d="M30 45L25 48L30 45L35 48" stroke="#059669" stroke-width="1.5">
+    <animate
+      attributeName="stroke-width"
+      dur="2s"
+      repeatCount="indefinite"
+      values="1.5;2;1.5"
+    />
+  </path>
+
+  <!-- Pulsing Data Points -->
+  <circle cx="45" cy="15" r="1.5" fill="#065f46">
+    <animate
+      attributeName="r"
+      dur="2s"
+      repeatCount="indefinite"
+      values="1.5;2;1.5"
+    />
+  </circle>
+  <circle cx="40" cy="20" r="1.5" fill="#065f46">
+    <animate
+      attributeName="r"
+      dur="2s"
+      repeatCount="indefinite"
+      values="1.5;2;1.5"
+      begin="0.5s"
+    />
+  </circle>
+</svg> 

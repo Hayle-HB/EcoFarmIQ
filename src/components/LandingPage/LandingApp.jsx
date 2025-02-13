@@ -4,14 +4,22 @@ import Header from "./Header/Header";
 import About from "./About/About";
 import Features from "./Features/Features";
 import Gallery from "./Gallery/Gallery";
+import BlogPreview from "./BlogPreview/BlogPreview";
+import Footer from "./Footer/Footer";
+import Contact from "./Contact/Contact";
+import Team from "./Team/Team";
 const LandingPage = () => {
   return (
     <div className="relative min-h-screen">
       <Navbar />
       <Header />
-      <About/>
-      <Features/>
-      <Gallery/>
+      <About />
+      <Features />
+      <Gallery />
+      <BlogPreview />
+      <Contact />
+      <Footer />
+      <Team />
       {/* Other sections */}
     </div>
   );
