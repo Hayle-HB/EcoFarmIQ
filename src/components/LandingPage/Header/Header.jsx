@@ -4,7 +4,7 @@ import smartAgriImage from "../../../assets/images/agri/agri3.jpg";
 
 const Header = () => {
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 sm:pt-20">
+    <div id="header" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 sm:pt-20">
       {/* Background with Gradient */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-r from-green-900/90 to-green-800/80" />

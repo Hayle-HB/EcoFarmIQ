@@ -57,7 +57,7 @@ const Team = () => {
   ];
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-white via-emerald-50/30 to-white">
+    <section id="team"className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-white via-emerald-50/30 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

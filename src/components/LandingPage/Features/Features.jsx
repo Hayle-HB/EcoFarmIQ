@@ -44,7 +44,7 @@ const Features = () => {
     <section
       id="features"
       className="min-h-screen bg-gradient-to-b from-green-50/40 to-white flex flex-col justify-center mt-2 md:mt-0 border-t-2 md:border-t-cyan-300 border-gray-200"
-    > {/* 100 */}
+    > {/* 100 */} 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-[95%] sm:w-full py-12 sm:py-16 lg:py-20">
         {/* Section Header */}
         <motion.div

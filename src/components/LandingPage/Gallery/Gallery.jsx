@@ -67,7 +67,7 @@ const Gallery = () => {
   );
 
   return (
-    <section className="bg-gradient-to-b from-white via-green-50/30 to-white flex flex-col justify-center overflow-hidden py-20">
+    <section id="gallery" className="bg-gradient-to-b from-white via-green-50/30 to-white flex flex-col justify-center overflow-hidden py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div

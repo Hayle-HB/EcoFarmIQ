@@ -4,7 +4,7 @@ import aboutImage from "../../../assets/images/agri/agri3.jpg";
 
 const About = () => {
   return (
-    <section className="min-h-screen flex items-center bg-gradient-to-b from-white to-green-50/40 py-8 sm:py-16 lg:py-20">
+    <section id="about" className="min-h-screen flex items-center bg-gradient-to-b from-white to-green-50/40 py-8 sm:py-16 lg:py-20">
       <div className="w-[90%] max-w-7xl mx-auto">
         {/* Section Title */}
         <motion.div

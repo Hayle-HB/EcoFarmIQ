@@ -10,7 +10,7 @@ const Footer = () => {
       { name: "Precision Agriculture", href: "#" },
       { name: "Sustainability", href: "#" },
     ],
-    company: [
+    company: [    
       { name: "About Us", href: "#" },
       { name: "Careers", href: "#" },
       { name: "News", href: "#" },
@@ -67,7 +67,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer id="footer" className="bg-gray-900 text-white">
       {/* Newsletter Section */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0">
