@@ -30,7 +30,7 @@ const Signup = () => {
   return (
     <div
       className="min-h-screen bg-gradient-to-b from-white via-green-50/30 to-white 
-      flex items-center justify-center p-4 sm:p-6 lg:p-8"
+      flex items-center justify-center p-4 sm:p-6 lg:p-8 mt-15"
     >
       <motion.div
         initial={{ opacity: 0, y: 20 }}
