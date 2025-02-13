@@ -3,6 +3,7 @@ import React, { useState } from "react";
 // import From from "./components/Subscribe/Subscribe";
 import Sidebar from "./components/SideBar/SideBar.jsx";
 import DashBoards from "./pages/DashBord/DashBoard.jsx";
+import LandingPage from "./components/LandingPage/LandingApp.jsx";
 const App = () => {
 
   const TestimonialData = [
@@ -30,9 +31,9 @@ const App = () => {
   return (
     <>
       <div className="">
-        <Sidebar />
-        <DashBoards />
-       
+        {/* <Sidebar />
+        <DashBoards /> */}
+        <LandingPage />
       </div>
     </>
   );
