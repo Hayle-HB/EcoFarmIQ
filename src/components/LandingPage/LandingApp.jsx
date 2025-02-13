@@ -11,6 +11,7 @@ import Contact from "./Contact/Contact";
 import Team from "./Team/Team";
 import Login from "../Auth/Login";
 import Signup from "../Auth/Signup";
+import NotFound from "../NotFound/NotFound";
 
 const MainContent = () => (
   <>
@@ -34,6 +35,7 @@ const LandingApp = () => {
           <Route path="/" element={<MainContent />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="*" element={<NotFound />} />
           {/* Add more routes as needed */}
         </Routes>
       </div>
