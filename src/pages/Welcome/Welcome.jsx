@@ -7,7 +7,8 @@ const Welcome = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/");
+    localStorage.removeItem("user");
+    navigate("/login");
   };
 
   return (
@@ -22,15 +23,24 @@ const Welcome = () => {
           <p className="text-gray-600 mb-8">
             You have successfully logged in to your account.
           </p>
-          <button onClick={() => handleLogout()}>Logout</button>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => navigate("/dashboard")}
-            className="bg-indigo-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-indigo-500 transition-colors duration-300"
-          >
-            Go to Dashboard
-          </motion.button>
+          <div className="space-y-4">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => navigate("/dashboard")}
+              className="bg-indigo-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-indigo-500 transition-colors duration-300 w-full"
+            >
+              Go to Dashboard
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleLogout}
+              className="bg-red-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-red-500 transition-colors duration-300 w-full"
+            >
+              Logout
+            </motion.button>
+          </div>
         </motion.div>
       </div>
     </div>
