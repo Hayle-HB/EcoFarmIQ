@@ -98,15 +98,24 @@ const Contact = () => {
   };
 
   return (
-    <section
-      id="contact"
-      className={`py-20 ${
-        isDarkMode
-          ? "bg-gray-900"
-          : "bg-gradient-to-b from-white via-emerald-50/30 to-white"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="relative py-20 overflow-hidden">
+      {/* Background with Gradient */}
+      <div className="absolute inset-0">
+        <div
+          className={`absolute inset-0 bg-gradient-to-b from-white via-emerald-50/30 to-white`}
+        />
+
+        {/* Single dark overlay from left */}
+        <motion.div
+          className="absolute inset-0 bg-gray-900/95"
+          initial={{ x: "-100%" }}
+          animate={{ x: isDarkMode ? "0%" : "-100%" }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+        />
+      </div>
+
+      {/* Content Container */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
