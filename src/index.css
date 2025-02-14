@@ -22,3 +22,8 @@ html {
 .animate-spin-slow {
   animation: spin-slow 15s linear infinite;
 }
+
+
+button {
+  cursor: pointer;
+}

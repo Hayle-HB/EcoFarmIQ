@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../Spinner/Spinner";
+import useMutation from "../../hooks/useMutation";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -14,6 +16,16 @@ const Signup = () => {
     agreeToTerms: false,
   });
 
+  const { loading, error, mutate } = useMutation(
+    "http://localhost:1000/api/auth/register",
+    {
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
@@ -22,9 +34,26 @@ const Signup = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle signup logic here
+
+    // Validate passwords match
+    if (formData.password !== formData.confirmPassword) {
+      return; // You might want to set a specific error state for this
+    }
+
+    try {
+      const response = await mutate(formData);
+      console.log("Signup response:", response);
+
+      if (response.status === "success") {
+        localStorage.setItem("token", response.token);
+        localStorage.setItem("user", JSON.stringify(response.user));
+        navigate("/welcome");
+      }
+    } catch (err) {
+      console.error("Signup failed:", err);
+    }
   };
 
   return (
@@ -57,6 +86,18 @@ const Signup = () => {
             Start your journey towards smarter farming
           </motion.p>
         </div>
+
+        {/* Error Message */}
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-4 p-4 text-sm text-red-700 bg-red-100 rounded-lg"
+            role="alert"
+          >
+            {error}
+          </motion.div>
+        )}
 
         {/* Signup Form */}
         <motion.div
@@ -159,7 +200,7 @@ const Signup = () => {
                     type="button"
                     onClick={() => setIsPasswordVisible(!isPasswordVisible)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 
-                      hover:text-gray-600 transition-colors duration-300"
+                      hover:text-gray-600 transition-colors duration-300 cursor-pointer"
                   >
                     {isPasswordVisible ? (
                       <svg
@@ -254,26 +295,35 @@ const Signup = () => {
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.99 }}
               type="submit"
+              disabled={loading}
               className="w-full bg-gradient-to-r from-green-600 to-emerald-600 
                 text-white py-3 px-4 rounded-lg font-medium shadow-lg 
                 shadow-green-600/30 hover:shadow-xl hover:shadow-green-600/40 
                 focus:outline-none focus:ring-4 focus:ring-green-500/20 
-                transition-all duration-300"
+                transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed
+                cursor-pointer"
             >
-              Create Account
+              {loading ? (
+                <div className="flex items-center justify-center gap-2">
+                  <Spinner size="small" color="white" />
+                  <span>Creating Account...</span>
+                </div>
+              ) : (
+                "Create Account"
+              )}
             </motion.button>
 
             {/* Login Link */}
             <p className="text-center text-sm text-gray-600">
               Already have an account?{" "}
-              <button
+              <motion.button
                 type="button"
                 onClick={() => navigate("/login")}
                 className="font-medium text-green-600 hover:text-green-500 
                   transition-colors duration-300"
               >
                 Sign in
-              </button>
+              </motion.button>
             </p>
           </form>
         </motion.div>
