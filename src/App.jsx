@@ -6,6 +6,8 @@ import Welcome from "./pages/Welcome/Welcome";
 import LandingApp from "./components/LandingPage/LandingApp";
 import Sidebar from "./components/SideBar/SideBar";
 import NotFound from "./components/NotFound/NotFound";
+import ThemeSwitcher from "./components/ThemeSwitcher/ThemeSwitcher";
+import { useEffect } from "react";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -36,60 +38,73 @@ const PublicRoute = ({ children }) => {
 
 function App() {
   const token = localStorage.getItem("token");
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
+
+  useEffect(() => {
+    // Apply or remove dark class based on Redux state
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDarkMode]);
 
   return (
-    <Routes>
-      {/* Landing Page */}
-      <Route
-        path="/"
-        element={token ? <Navigate to="/welcome" replace /> : <LandingApp />}
-      />
+    <div className={`${isDarkMode ? "dark" : "light"}`}>
+      <Routes>
+        {/* Landing Page */}
+        <Route
+          path="/"
+          element={token ? <Navigate to="/welcome" replace /> : <LandingApp />}
+        />
 
-      {/* Auth Routes */}
-      <Route
-        path="/login"
-        element={
-          <PublicRoute>
-            <Login />
-          </PublicRoute>
-        }
-      />
-
-      <Route
-        path="/signup"
-        element={
-          <PublicRoute>
-            <Signup />
-          </PublicRoute>
-        }
-      />
-
-      {/* Protected Routes */}
-      <Route
-        path="/welcome"
-        element={
-          <ProtectedRoute>
-            <Welcome />
-          </ProtectedRoute>
-        }
-      />
-
-      {/* 404 Route */}
-      <Route
-        path="*"
-        element={
-          token ? (
-            <ProtectedRoute>
-              <NotFound />
-            </ProtectedRoute>
-          ) : (
+        {/* Auth Routes */}
+        <Route
+          path="/login"
+          element={
             <PublicRoute>
-              <NotFound />
+              <Login />
             </PublicRoute>
-          )
-        }
-      />
-    </Routes>
+          }
+        />
+
+        <Route
+          path="/signup"
+          element={
+            <PublicRoute>
+              <Signup />
+            </PublicRoute>
+          }
+        />
+
+        {/* Protected Routes */}
+        <Route
+          path="/welcome"
+          element={
+            <ProtectedRoute>
+              <Welcome />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* 404 Route */}
+        <Route
+          path="*"
+          element={
+            token ? (
+              <ProtectedRoute>
+                <NotFound />
+              </ProtectedRoute>
+            ) : (
+              <PublicRoute>
+                <NotFound />
+              </PublicRoute>
+            )
+          }
+        />
+      </Routes>
+      <ThemeSwitcher />
+    </div>
   );
 }
 

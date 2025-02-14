@@ -1,23 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+  isDarkMode: localStorage.getItem("theme") === "dark" || false,
+};
+
 const themeSlice = createSlice({
   name: "theme",
-  initialState: {
-    isDark: true,
-  },
+  initialState,
   reducers: {
-    toggleDarkTheme: (state) => {
-      state.isOpen = !state.isOpen;
+    toggleTheme: (state) => {
+      state.isDarkMode = !state.isDarkMode;
+      localStorage.setItem("theme", state.isDarkMode ? "dark" : "light");
     },
-    setDarkTeam: (state) => {
-      state.isOpen = true;
+    setDarkTheme: (state) => {
+      state.isDarkMode = true;
+      localStorage.setItem("theme", "dark");
     },
-    closeDarkTheme: (state) => {
-      state.isOpen = false;
+    setLightTheme: (state) => {
+      state.isDarkMode = false;
+      localStorage.setItem("theme", "light");
     },
   },
 });
 
-export const { toggleDarkTheme, setDarkTeam, closeDarkTheme } =
-  themeSlice.actions;
+export const { toggleTheme, setDarkTheme, setLightTheme } = themeSlice.actions;
 export default themeSlice.reducer;

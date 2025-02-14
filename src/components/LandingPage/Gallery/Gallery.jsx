@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSelector } from "react-redux";
 import agri1 from "../../../assets/images/agri/smart agri 1.jpg";
 import agri2 from "../../../assets/images/agri/plant1.jpg";
 import agri3 from "../../../assets/images/agri/plant2.jpg";
@@ -8,6 +9,7 @@ import agri5 from "../../../assets/images/agri/agri5.jpg";
 import agri6 from "../../../assets/images/agri/agri6.jpg";
 
 const Gallery = () => {
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
   const [selectedImage, setSelectedImage] = useState(null);
   const [activeFilter, setActiveFilter] = useState("all");
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -48,13 +50,13 @@ const Gallery = () => {
       title: "Vertical Farming",
       description: "Space-efficient urban agriculture",
     },
-    {
-      id: 6,
-      image: agri6,
-      category: "technology",
-      title: "IoT Sensors",
-      description: "Real-time environmental monitoring",
-    },
+    // {
+    //   id: 6,
+    //   image: agri6,
+    //   category: "technology",
+    //   title: "IoT Sensors",
+    //   description: "Real-time environmental monitoring",
+    // },
   ]);
 
   const filters = [
@@ -110,9 +112,22 @@ const Gallery = () => {
   return (
     <section
       id="gallery"
-      className="bg-gradient-to-b from-white via-green-50/30 to-white flex flex-col justify-center overflow-hidden py-12 sm:py-16 md:py-20"
+      className="relative py-12 sm:py-16 md:py-20 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Background with Gradient */}
+      <div className="absolute inset-0">
+        <div
+          className={`absolute inset-0 bg-gradient-to-b from-white to-green-50/40`}
+        />
+        <motion.div
+          className="absolute inset-0 bg-gray-900"
+          initial={{ x: "100%" }}
+          animate={{ x: isDarkMode ? "0%" : "-100%" }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+        />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
           className="text-center mb-8 sm:mb-12"
@@ -121,11 +136,19 @@ const Gallery = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="font-playfair text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+          <h2
+            className={`font-playfair text-3xl sm:text-4xl font-bold mb-3 ${
+              isDarkMode ? "text-white" : "text-gray-900"
+            }`}
+          >
             Our <span className="text-green-600">Gallery</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-green-400 to-green-600 mx-auto rounded-full mb-3" />
-          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto font-light px-4">
+          <p
+            className={`text-base sm:text-lg max-w-2xl mx-auto font-light px-4 ${
+              isDarkMode ? "text-gray-300" : "text-gray-600"
+            }`}
+          >
             Explore our innovative agricultural solutions in action
           </p>
         </motion.div>
@@ -135,10 +158,15 @@ const Gallery = () => {
           {filters.map((filter) => (
             <motion.button
               key={filter.id}
-              className={`px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300
-                shadow-sm hover:shadow-md ${
+              className={`px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm 
+                font-medium transition-all duration-300 shadow-sm hover:shadow-md 
+                ${
                   activeFilter === filter.id
-                    ? "bg-gradient-to-r from-green-500 to-green-600 text-white"
+                    ? isDarkMode
+                      ? "bg-gradient-to-r from-green-600 to-green-700 text-white"
+                      : "bg-gradient-to-r from-green-500 to-green-600 text-white"
+                    : isDarkMode
+                    ? "bg-gray-800 text-gray-300 hover:bg-gray-700"
                     : "bg-white text-gray-600 hover:bg-green-50"
                 }`}
               onClick={() => setActiveFilter(filter.id)}
@@ -150,12 +178,60 @@ const Gallery = () => {
           ))}
         </div>
 
+        {/* Desktop/Tablet Grid */}
+        <motion.div
+          className="hidden sm:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4"
+          layout
+        >
+          <AnimatePresence>
+            {filteredItems.map((item) => (
+              <motion.div
+                key={item.id}
+                layoutId={`gallery-item-${item.id}`}
+                initial={{ opacity: 0, scale: 0.6 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.6 }}
+                transition={{ duration: 0.3 }}
+                className="aspect-square relative overflow-hidden rounded-xl 
+                  cursor-zoom-in bg-white"
+                onClick={() => setSelectedImage(item)}
+              >
+                {/* Dark mode overlay that follows the theme transition */}
+                <motion.div
+                  className="absolute inset-0 bg-gray-800 backdrop-blur-sm"
+                  initial={{ x: "100%" }}
+                  animate={{ x: isDarkMode ? "0%" : "-100%" }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                />
+
+                <motion.div
+                  className="w-full h-full group relative z-10"
+                  whileHover={{ scale: 1.15 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className={`w-full h-full object-cover transition-all duration-300
+                      ${isDarkMode ? "" : "grayscale hover:grayscale-0"}`}
+                  />
+                </motion.div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
         {/* Mobile Slider */}
         <div className="sm:hidden relative mb-8">
-          <motion.div
-            className="relative h-[280px] w-full overflow-hidden rounded-xl"
-            layout
-          >
+          <motion.div className="relative h-[280px] w-full overflow-hidden rounded-xl bg-white">
+            {/* Dark mode overlay for mobile */}
+            <motion.div
+              className="absolute inset-0 bg-gray-800 backdrop-blur-sm z-10"
+              initial={{ x: "100%" }}
+              animate={{ x: isDarkMode ? "0%" : "-100%" }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+            />
+
             <AnimatePresence initial={false}>
               {filteredItems.map(
                 (item, index) =>
@@ -182,7 +258,12 @@ const Gallery = () => {
                       <img
                         src={item.image}
                         alt={item.title}
-                        className="w-full h-full object-cover pointer-events-none"
+                        className={`w-full h-full object-cover pointer-events-none
+                          ${
+                            isDarkMode
+                              ? "" // Remove grayscale in dark mode
+                              : "grayscale hover:grayscale-0" // Only apply grayscale in light mode
+                          }`}
                       />
                       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 p-4 pointer-events-none">
                         <h3 className="text-white text-lg font-semibold">
@@ -230,105 +311,107 @@ const Gallery = () => {
           </div>
         </div>
 
-        {/* Desktop/Tablet Grid */}
-        <motion.div
-          className="hidden sm:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4"
-          layout
-        >
-          <AnimatePresence>
-            {filteredItems.map((item) => (
-              <motion.div
-                key={item.id}
-                layoutId={`gallery-item-${item.id}`}
-                initial={{ opacity: 0, scale: 0.6 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.6 }}
-                transition={{ duration: 0.3 }}
-                className="aspect-square relative overflow-hidden rounded-xl cursor-zoom-in"
-                onClick={() => setSelectedImage(item)}
-              >
-                <motion.div
-                  className="w-full h-full group"
-                  whileHover={{ scale: 1.15 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover transform transition-all duration-300
-                      grayscale group-hover:grayscale-0"
-                  />
-                </motion.div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-
-        {/* Expanded Image Modal - Adjusted size and controls */}
+        {/* Expanded Image Modal */}
         <AnimatePresence>
           {selectedImage && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 sm:p-6 cursor-zoom-out"
+              transition={{ duration: 0.3 }}
+              className={`fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6 mt-16
+                cursor-zoom-out ${isDarkMode ? "bg-black/0" : "bg-black/0"}`}
               onClick={() => setSelectedImage(null)}
             >
               <motion.div
-                layoutId={`gallery-item-${selectedImage.id}`}
-                className="relative bg-black rounded-lg sm:rounded-xl overflow-hidden"
-                initial={{ width: "100px", height: "100px" }}
-                animate={{
-                  width: "min(85vw, 700px)", // Reduced from 90vw, 800px
-                  height: "min(85vh, 500px)", // Reduced from 90vh, 600px
-                }}
+                initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+                animate={{ opacity: 1, backdropFilter: "blur(8px)" }}
+                exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
                 transition={{ duration: 0.3 }}
+                className="absolute inset-0 bg-black/40"
+                onClick={() => setSelectedImage(null)}
+              />
+
+              <motion.div
+                layoutId={`gallery-item-${selectedImage.id}`}
+                className={`relative overflow-hidden rounded-lg sm:rounded-xl 
+                  ${isDarkMode ? "bg-gray-900" : "bg-black"}`}
+                transition={{
+                  type: "spring",
+                  stiffness: 200,
+                  damping: 30,
+                  duration: 0.6,
+                }}
                 onClick={(e) => e.stopPropagation()}
               >
-                <div className="w-full h-full relative">
+                {/* Close Button */}
+                <motion.button
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.5 }}
+                  transition={{ duration: 0.2 }}
+                  onClick={() => setSelectedImage(null)}
+                  className="absolute top-4 right-4 z-50 p-2 rounded-full 
+                    bg-black/50 hover:bg-black/70 text-white/90 hover:text-white
+                    transition-all duration-300 backdrop-blur-sm"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </motion.button>
+
+                <motion.div
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.8, opacity: 0 }}
+                  transition={{ duration: 0.3, delay: 0.1 }}
+                  className="w-[85vw] h-[70vh] sm:w-[80vw] sm:h-[65vh] 
+                    md:w-[70vw] md:h-[60vh] lg:w-[60vw] lg:h-[70vh]"
+                >
                   <img
                     src={selectedImage.image}
                     alt={selectedImage.title}
                     className="w-full h-full object-contain"
                   />
-
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
+                    exit={{ opacity: 0, y: 50 }}
+                    transition={{ duration: 0.3, delay: 0.2 }}
                     className="absolute bottom-0 left-0 right-0 bg-gradient-to-t 
-                      from-black/90 via-black/60 to-transparent p-3 sm:p-6"
+                      from-black/90 via-black/60 to-transparent p-4 sm:p-6"
                   >
                     <motion.h3
-                      initial={{ opacity: 0, y: 10 }}
+                      initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 }}
-                      className="text-white text-lg sm:text-xl font-semibold mb-1 sm:mb-2"
+                      exit={{ opacity: 0, y: 20 }}
+                      transition={{ duration: 0.3, delay: 0.3 }}
+                      className="text-white text-lg sm:text-xl font-semibold mb-2"
                     >
                       {selectedImage.title}
                     </motion.h3>
                     <motion.p
-                      initial={{ opacity: 0, y: 10 }}
+                      initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 }}
-                      className="text-gray-200 text-xs sm:text-sm"
+                      exit={{ opacity: 0, y: 20 }}
+                      transition={{ duration: 0.3, delay: 0.4 }}
+                      className="text-gray-200 text-sm sm:text-base"
                     >
                       {selectedImage.description}
                     </motion.p>
                   </motion.div>
-
-                  <motion.button
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.3 }}
-                    className="absolute top-2 sm:top-4 right-2 sm:right-4 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full 
-                      bg-black/40 hover:bg-black/60 backdrop-blur-sm transition-all duration-300
-                      flex items-center justify-center text-2xl sm:text-3xl font-bold"
-                    onClick={() => setSelectedImage(null)}
-                  >
-                    ×
-                  </motion.button>
-                </div>
+                </motion.div>
               </motion.div>
             </motion.div>
           )}

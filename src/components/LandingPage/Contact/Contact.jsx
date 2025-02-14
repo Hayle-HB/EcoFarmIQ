@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
 
 const Contact = () => {
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -96,7 +98,14 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-b from-white via-emerald-50/30 to-white">
+    <section
+      id="contact"
+      className={`py-20 ${
+        isDarkMode
+          ? "bg-gray-900"
+          : "bg-gradient-to-b from-white via-emerald-50/30 to-white"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -105,10 +114,18 @@ const Contact = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Get in <span className="text-emerald-600">Touch</span>
+          <h2
+            className={`text-4xl font-bold mb-4 ${
+              isDarkMode ? "text-white" : "text-gray-900"
+            }`}
+          >
+            Get in <span className="text-emerald-500">Touch</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p
+            className={`text-lg max-w-2xl mx-auto ${
+              isDarkMode ? "text-gray-300" : "text-gray-600"
+            }`}
+          >
             Have questions about EcoFarmIQ? We're here to help. Send us a
             message and we'll respond as soon as possible.
           </p>
@@ -123,8 +140,12 @@ const Contact = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl 
-                transition-all duration-300 group border border-emerald-100"
+              className={`p-6 rounded-xl shadow-lg hover:shadow-xl 
+                transition-all duration-300 group ${
+                  isDarkMode
+                    ? "bg-gray-800 border-gray-700"
+                    : "bg-white border border-emerald-100"
+                }`}
             >
               <div
                 className="w-12 h-12 bg-gradient-to-br from-emerald-500 via-green-500 
@@ -133,11 +154,20 @@ const Contact = () => {
               >
                 <span className="text-white">{info.icon}</span>
               </div>
-              <h3 className="text-xl font-semibold text-emerald-800 mb-2">
+              <h3
+                className={`text-xl font-semibold mb-2 ${
+                  isDarkMode ? "text-emerald-400" : "text-emerald-800"
+                }`}
+              >
                 {info.title}
               </h3>
               {info.details.map((detail, i) => (
-                <p key={i} className="text-emerald-600">
+                <p
+                  key={i}
+                  className={
+                    isDarkMode ? "text-emerald-300" : "text-emerald-600"
+                  }
+                >
                   {detail}
                 </p>
               ))}
@@ -151,7 +181,11 @@ const Contact = () => {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-white p-8 rounded-xl shadow-lg border border-emerald-100"
+            className={`p-8 rounded-xl shadow-lg ${
+              isDarkMode
+                ? "bg-gray-800 border-gray-700"
+                : "bg-white border border-emerald-100"
+            }`}
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="relative">
@@ -162,18 +196,26 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder=" "
-                  className="block w-full px-4 py-3 text-gray-700 bg-white border border-emerald-200 
-                    rounded-lg focus:border-emerald-400 focus:ring-emerald-300 focus:outline-none 
-                    focus:ring focus:ring-opacity-40 transition-colors duration-200 peer"
+                  className={`block w-full px-4 py-3 rounded-lg 
+                    focus:ring focus:ring-opacity-40 transition-colors duration-200 peer
+                    ${
+                      isDarkMode
+                        ? "bg-gray-700 border-gray-600 text-white focus:border-emerald-500 focus:ring-emerald-400"
+                        : "bg-white border-emerald-200 text-gray-700 focus:border-emerald-400 focus:ring-emerald-300"
+                    }`}
                   required
                 />
                 <label
                   htmlFor="name"
-                  className="absolute text-sm text-gray-500 duration-300 transform 
+                  className={`absolute text-sm duration-300 transform 
                     -translate-y-6 scale-75 top-3 z-10 origin-[0] left-4 
                     peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 
-                    peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-emerald-600
-                    bg-white px-2"
+                    peer-focus:scale-75 peer-focus:-translate-y-6 
+                    ${
+                      isDarkMode
+                        ? "text-gray-400 peer-focus:text-emerald-400 bg-gray-800"
+                        : "text-gray-500 peer-focus:text-emerald-600 bg-white"
+                    } px-2`}
                 >
                   Full Name
                 </label>
@@ -187,18 +229,26 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder=" "
-                  className="block w-full px-4 py-3 text-gray-700 bg-white border border-emerald-200 
-                    rounded-lg focus:border-emerald-400 focus:ring-emerald-300 focus:outline-none 
-                    focus:ring focus:ring-opacity-40 transition-colors duration-200 peer"
+                  className={`block w-full px-4 py-3 rounded-lg 
+                    focus:ring focus:ring-opacity-40 transition-colors duration-200 peer
+                    ${
+                      isDarkMode
+                        ? "bg-gray-700 border-gray-600 text-white focus:border-emerald-500 focus:ring-emerald-400"
+                        : "bg-white border-emerald-200 text-gray-700 focus:border-emerald-400 focus:ring-emerald-300"
+                    }`}
                   required
                 />
                 <label
                   htmlFor="email"
-                  className="absolute text-sm text-gray-500 duration-300 transform 
+                  className={`absolute text-sm duration-300 transform 
                     -translate-y-6 scale-75 top-3 z-10 origin-[0] left-4 
                     peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 
-                    peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-emerald-600
-                    bg-white px-2"
+                    peer-focus:scale-75 peer-focus:-translate-y-6 
+                    ${
+                      isDarkMode
+                        ? "text-gray-400 peer-focus:text-emerald-400 bg-gray-800"
+                        : "text-gray-500 peer-focus:text-emerald-600 bg-white"
+                    } px-2`}
                 >
                   Email Address
                 </label>
@@ -212,18 +262,26 @@ const Contact = () => {
                   value={formData.subject}
                   onChange={handleChange}
                   placeholder=" "
-                  className="block w-full px-4 py-3 text-gray-700 bg-white border border-emerald-200 
-                    rounded-lg focus:border-emerald-400 focus:ring-emerald-300 focus:outline-none 
-                    focus:ring focus:ring-opacity-40 transition-colors duration-200 peer"
+                  className={`block w-full px-4 py-3 rounded-lg 
+                    focus:ring focus:ring-opacity-40 transition-colors duration-200 peer
+                    ${
+                      isDarkMode
+                        ? "bg-gray-700 border-gray-600 text-white focus:border-emerald-500 focus:ring-emerald-400"
+                        : "bg-white border-emerald-200 text-gray-700 focus:border-emerald-400 focus:ring-emerald-300"
+                    }`}
                   required
                 />
                 <label
                   htmlFor="subject"
-                  className="absolute text-sm text-gray-500 duration-300 transform 
+                  className={`absolute text-sm duration-300 transform 
                     -translate-y-6 scale-75 top-3 z-10 origin-[0] left-4 
                     peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 
-                    peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-emerald-600
-                    bg-white px-2"
+                    peer-focus:scale-75 peer-focus:-translate-y-6 
+                    ${
+                      isDarkMode
+                        ? "text-gray-400 peer-focus:text-emerald-400 bg-gray-800"
+                        : "text-gray-500 peer-focus:text-emerald-600 bg-white"
+                    } px-2`}
                 >
                   Subject
                 </label>
@@ -237,18 +295,26 @@ const Contact = () => {
                   value={formData.message}
                   onChange={handleChange}
                   placeholder=" "
-                  className="block w-full px-4 py-3 text-gray-700 bg-white border border-emerald-200 
-                    rounded-lg focus:border-emerald-400 focus:ring-emerald-300 focus:outline-none 
-                    focus:ring focus:ring-opacity-40 transition-colors duration-200 peer resize-none"
+                  className={`block w-full px-4 py-3 rounded-lg 
+                    focus:ring focus:ring-opacity-40 transition-colors duration-200 peer resize-none
+                    ${
+                      isDarkMode
+                        ? "bg-gray-700 border-gray-600 text-white focus:border-emerald-500 focus:ring-emerald-400"
+                        : "bg-white border-emerald-200 text-gray-700 focus:border-emerald-400 focus:ring-emerald-300"
+                    }`}
                   required
                 />
                 <label
                   htmlFor="message"
-                  className="absolute text-sm text-gray-500 duration-300 transform 
+                  className={`absolute text-sm duration-300 transform 
                     -translate-y-6 scale-75 top-3 z-10 origin-[0] left-4 
                     peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 
-                    peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-emerald-600
-                    bg-white px-2"
+                    peer-focus:scale-75 peer-focus:-translate-y-6 
+                    ${
+                      isDarkMode
+                        ? "text-gray-400 peer-focus:text-emerald-400 bg-gray-800"
+                        : "text-gray-500 peer-focus:text-emerald-600 bg-white"
+                    } px-2`}
                 >
                   Your Message
                 </label>
@@ -256,11 +322,14 @@ const Contact = () => {
 
               <button
                 type="submit"
-                className="w-full px-6 py-3 text-white font-medium tracking-wide 
-                  bg-gradient-to-r from-emerald-500 to-green-500 rounded-lg 
-                  hover:from-green-500 hover:to-emerald-500 transition-all duration-300 
-                  transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 
-                  focus:ring-emerald-300 shadow-lg hover:shadow-xl"
+                className={`w-full px-6 py-3 text-white font-medium tracking-wide 
+                  rounded-lg transition-all duration-300 transform 
+                  hover:-translate-y-0.5 focus:outline-none focus:ring-2 
+                  shadow-lg hover:shadow-xl ${
+                    isDarkMode
+                      ? "bg-emerald-600 hover:bg-emerald-500 focus:ring-emerald-400"
+                      : "bg-gradient-to-r from-emerald-500 to-green-500 hover:from-green-500 hover:to-emerald-500 focus:ring-emerald-300"
+                  }`}
               >
                 Send Message
               </button>
@@ -272,7 +341,9 @@ const Contact = () => {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="rounded-xl overflow-hidden shadow-lg border border-emerald-100 h-[400px]"
+            className={`rounded-xl overflow-hidden shadow-lg h-[400px] ${
+              isDarkMode ? "border-gray-700" : "border border-emerald-100"
+            }`}
           >
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d986.1112835410372!2d38.806986230206135!3d8.882737437828125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2set!4v1739414359991!5m2!1sen!2set"
@@ -282,7 +353,11 @@ const Contact = () => {
               allowFullScreen=""
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              className="filter hover:contrast-[1.1] transition-all duration-300"
+              className={`filter transition-all duration-300 ${
+                isDarkMode
+                  ? "contrast-75 hover:contrast-100"
+                  : "hover:contrast-[1.1]"
+              }`}
               title="EcoFarmIQ Location"
             ></iframe>
           </motion.div>

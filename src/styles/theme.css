@@ -1,0 +1,100 @@
+
+/* Add your theme styles inside a @layer components *@layer components {
+  /* Theme variables */
+  :root {
+    /* Light theme */
+    --primary-light: #22c55e;
+    --secondary-light: #16a34a;
+    --background-light: #ffffff;
+    --text-light: #1f2937;
+    --border-light: #e5e7eb;
+
+    /* Dark theme */
+    --primary-dark: #4ade80;
+    --secondary-dark: #22c55e;
+    --background-dark: #111827;
+    --text-dark: #f3f4f6;
+    --border-dark: #374151;
+  }
+
+  /* Theme classes */
+  .light {
+    --primary: var(--primary-light);
+    --secondary: var(--secondary-light);
+    --background: var(--background-light);
+    --text: var(--text-light);
+    --border: var(--border-light);
+  }
+
+  .dark {
+    --primary: var(--primary-dark);
+    --secondary: var(--secondary-dark);
+    --background: var(--background-dark);
+    --text: var(--text-dark);
+    --border: var(--border-dark);
+  }
+
+  /* Dark mode specific styles */
+  .dark button {
+    background-color: rgb(31, 41, 55);
+    color: white;
+    border-color: rgb(55, 65, 81);
+  }
+
+  .dark input,
+  .dark textarea,
+  .dark select {
+    background-color: rgb(31, 41, 55);
+    border-color: rgb(55, 65, 81);
+    color: white;
+  }
+
+  .dark .login-container {
+    background: linear-gradient(
+      to bottom,
+      rgb(17, 24, 39),
+      rgba(31, 41, 55, 0.3),
+      rgb(17, 24, 39)
+    );
+  }
+
+  .dark .login-form-container {
+    background-color: rgb(31, 41, 55);
+    border-color: rgb(55, 65, 81);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  }
+
+  .dark .login-header {
+    color: white;
+  }
+
+  .dark .login-subtext {
+    color: rgb(209, 213, 219);
+  }
+
+  .dark .login-label {
+    color: rgb(209, 213, 219);
+  }
+
+  .dark .login-link {
+    color: rgb(74, 222, 128);
+  }
+
+  .dark .login-link:hover {
+    color: rgb(134, 239, 172);
+  }
+
+  /* Light mode specific styles */
+  .light button {
+    background-color: white;
+    color: rgb(17, 24, 39);
+    border-color: rgb(229, 231, 235);
+  }
+
+  .light input,
+  .light textarea,
+  .light select {
+    background-color: white;
+    border-color: rgb(229, 231, 235);
+    color: rgb(17, 24, 39);
+  }

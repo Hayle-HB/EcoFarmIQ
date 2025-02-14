@@ -1,11 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Haylemeskel from "../../../assets/images/person/Haylemeskel.jpg";
 import Haylemariam from "../../../assets/images/person/Hayle3.png";
 import Mewal from "../../../assets/images/person/Mewal.png";
 
 const Team = () => {
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
   const teamMembers = [
     {
       name: "Haylemekskel Haylemariam",
@@ -61,7 +63,11 @@ const Team = () => {
   return (
     <section
       id="teams"
-      className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-white via-emerald-50/30 to-white"
+      className={`py-12 sm:py-16 lg:py-20 ${
+        isDarkMode
+          ? "bg-gray-900"
+          : "bg-gradient-to-b from-white via-emerald-50/30 to-white"
+      }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -70,10 +76,18 @@ const Team = () => {
           viewport={{ once: true }}
           className="text-center mb-8 sm:mb-12 lg:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
-            Meet Our <span className="text-emerald-600">Expert Team</span>
+          <h2
+            className={`text-3xl sm:text-4xl font-bold mb-3 sm:mb-4 ${
+              isDarkMode ? "text-white" : "text-gray-900"
+            }`}
+          >
+            Meet Our <span className="text-emerald-500">Expert Team</span>
           </h2>
-          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4 sm:px-6">
+          <p
+            className={`text-base sm:text-lg max-w-2xl mx-auto px-4 sm:px-6 ${
+              isDarkMode ? "text-gray-300" : "text-gray-600"
+            }`}
+          >
             Pioneering smart agricultural solutions through innovative
             technology and expertise.
           </p>
@@ -90,8 +104,13 @@ const Team = () => {
               className="group h-full"
             >
               <div
-                className="relative overflow-hidden rounded-xl bg-white shadow-lg 
-                transition-all duration-300 hover:shadow-xl h-full flex flex-col"
+                className={`relative overflow-hidden rounded-xl shadow-lg 
+                transition-all duration-300 hover:shadow-xl h-full flex flex-col
+                ${
+                  isDarkMode
+                    ? "bg-gray-800 shadow-gray-900/50"
+                    : "bg-white shadow-gray-100/50"
+                }`}
               >
                 {/* Image Container */}
                 {member.image === "none" ? (
@@ -187,16 +206,24 @@ const Team = () => {
                 )}
                 {/* Content */}
                 <div className="p-3 sm:p-4 flex-grow flex flex-col">
-                  <h4 className="text-base sm:text-lg font-semibold text-zinc-900 mb-1">
+                  <h4
+                    className={`text-base sm:text-lg font-semibold mb-1 ${
+                      isDarkMode ? "text-white" : "text-zinc-900"
+                    }`}
+                  >
                     {member.name}
                   </h4>
-                  <p className="text-sm sm:text-base text-emerald-600 font-medium mb-1 sm:mb-2">
+                  <p className="text-sm sm:text-base text-emerald-500 font-medium mb-1 sm:mb-2">
                     {member.role}
                   </p>
-                  <p className="text-xs sm:text-sm text-emerald-700 font-medium mb-2 sm:mb-3">
+                  <p className="text-xs sm:text-sm text-emerald-400 font-medium mb-2 sm:mb-3">
                     {member.position}
                   </p>
-                  <p className="text-xs sm:text-sm text-gray-600">
+                  <p
+                    className={`text-xs sm:text-sm ${
+                      isDarkMode ? "text-gray-300" : "text-gray-600"
+                    }`}
+                  >
                     {member.bio}
                   </p>
                   {member.image !== "none" && (
@@ -205,8 +232,12 @@ const Team = () => {
                         to={`/team/${member.name
                           .toLowerCase()
                           .replace(/\s+/g, "-")}`}
-                        className="inline-flex items-center text-emerald-600 hover:text-emerald-700 
-                          text-sm sm:text-base group/more"
+                        className={`inline-flex items-center text-sm sm:text-base group/more
+                          ${
+                            isDarkMode
+                              ? "text-emerald-400 hover:text-emerald-300"
+                              : "text-emerald-600 hover:text-emerald-700"
+                          }`}
                       >
                         More
                         <svg
