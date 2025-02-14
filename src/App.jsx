@@ -23,23 +23,45 @@ const ProtectedRoute = ({ children }) => {
   );
 };
 
+// Public Route Component
+const PublicRoute = ({ children }) => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    return <Navigate to="/welcome" replace />;
+  }
+
+  return children;
+};
+
 function App() {
   const token = localStorage.getItem("token");
 
   return (
     <Routes>
-      {/* Public Routes */}
+      {/* Landing Page */}
       <Route
         path="/"
-        element={!token ? <LandingApp /> : <Navigate to="/welcome" />}
+        element={token ? <Navigate to="/welcome" replace /> : <LandingApp />}
       />
+
+      {/* Auth Routes */}
       <Route
         path="/login"
-        element={!token ? <Login /> : <Navigate to="/welcome" />}
+        element={
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        }
       />
+
       <Route
         path="/signup"
-        element={!token ? <Signup /> : <Navigate to="/welcome" />}
+        element={
+          <PublicRoute>
+            <Signup />
+          </PublicRoute>
+        }
       />
 
       {/* Protected Routes */}
@@ -53,7 +75,20 @@ function App() {
       />
 
       {/* 404 Route */}
-      <Route path="*" element={<NotFound />} />
+      <Route
+        path="*"
+        element={
+          token ? (
+            <ProtectedRoute>
+              <NotFound />
+            </ProtectedRoute>
+          ) : (
+            <PublicRoute>
+              <NotFound />
+            </PublicRoute>
+          )
+        }
+      />
     </Routes>
   );
 }
