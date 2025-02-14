@@ -17,7 +17,7 @@ const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
 
   const { loading, error, mutate } = useMutation(
-    "http://localhost:1000/api/auth/login",
+    "https://ecofarm.onrender.com/api/auth/login",
     {
       credentials: "include",
       headers: {

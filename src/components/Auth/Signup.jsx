@@ -21,7 +21,7 @@ const Signup = () => {
   const [passwordError, setPasswordError] = useState("");
 
   const { loading, error, mutate } = useMutation(
-    "http://localhost:1000/api/auth/register",
+    "https://ecofarm.onrender.com/api/auth/register",
     {
       method: "POST",
       credentials: "include",
