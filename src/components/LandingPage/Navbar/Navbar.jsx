@@ -47,11 +47,16 @@ const Navbar = () => {
         { name: "Research Papers", href: "#research" },
       ],
     },
-    { name: "Features", href: "#features" },
-    { name: "Our Team", href: "#teams" },
-    { name: "Blog", href: "#blog" },
-    { name: "About", href: "#about" },
-    { name: "Contact", href: "#contact" },
+    {
+      name: "More",
+      dropdown: [
+        { name: "Features", href: "#features" },
+        { name: "Our Team", href: "#teams" },
+        { name: "Blog", href: "#blog" },
+        { name: "About", href: "#about" },
+        { name: "Contact", href: "#contact" },
+      ],
+    },
   ];
 
   // Handle navbar background on scroll
@@ -73,24 +78,57 @@ const Navbar = () => {
   };
 
   const handleNavigation = (href) => {
-    if (location.pathname !== "/") {
-      navigate("/", { state: { scrollTo: href.substring(1) } });
+    // Remove the '#' from the href
+    const sectionId = href.replace("#", "");
+    console.log("Trying to navigate to section:", sectionId); // Debug log
+
+    // Find the element
+    const element = document.getElementById(sectionId);
+    console.log("Found element:", element); // Debug log
+
+    if (element) {
+      // Close menus first
+      setIsMenuOpen(false);
+      setActiveDropdown(null);
+
+      // Scroll after a small delay to ensure menus are closed
+      setTimeout(() => {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 100);
     } else {
-      const element = document.getElementById(href.substring(1));
-      element?.scrollIntoView({ behavior: "smooth" });
+      console.log("Section not found:", sectionId); // Debug log
     }
-    setIsMenuOpen(false);
   };
 
-  // Add effect to handle scrolling when returning to home page
+  // Handle scrolling when returning to home page
   useEffect(() => {
     if (location.state?.scrollTo) {
-      const element = document.getElementById(location.state.scrollTo);
-      element?.scrollIntoView({ behavior: "smooth" });
-      // Clear the state
-      window.history.replaceState({}, document.title);
+      setTimeout(() => {
+        const element = document.getElementById(location.state.scrollTo);
+        if (element) {
+          element.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+        // Clear the state
+        window.history.replaceState({}, document.title);
+      }, 100); // Small delay to ensure the page has loaded
     }
   }, [location]);
+
+  const handleMobileNavigation = (href) => {
+    if (!href) {
+      console.log("No href provided"); // Debug log
+      return;
+    }
+
+    console.log("Mobile navigation to:", href); // Debug log
+    handleNavigation(href);
+  };
 
   return (
     <nav
@@ -300,38 +338,88 @@ const Navbar = () => {
         }
         transition={{ duration: 0.3 }}
         className={`md:hidden overflow-hidden ${
-          isDarkMode ? "bg-gray-800/80" : "bg-white/80"
+          isDarkMode ? "bg-gray-800/95" : "bg-white/95"
         } backdrop-blur-lg`}
       >
         <div className="px-4 pt-2 pb-3 space-y-1">
           {navItems.map((item, index) => (
             <div key={item.name}>
-              <a
-                onClick={() => item.href && handleNavigation(item.href)}
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700
-                  hover:text-[#40e0d0] hover:bg-gray-50 transition-all duration-300"
+              <button
+                onClick={() => {
+                  if (item.dropdown) {
+                    setActiveDropdown(activeDropdown === index ? null : index);
+                  } else if (item.href) {
+                    handleMobileNavigation(item.href);
+                  }
+                }}
+                className={`w-full text-left px-3 py-2 rounded-md text-base font-medium 
+                  flex items-center justify-between
+                  transition-all duration-300
+                  ${
+                    isDarkMode
+                      ? "text-gray-200 hover:text-emerald-400 hover:bg-gray-700/50"
+                      : "text-gray-700 hover:text-emerald-600 hover:bg-gray-50"
+                  }`}
               >
-                {item.name}
-                {item.dropdown && <span className="ml-1 inline-block">▼</span>}
-              </a>
+                <span>{item.name}</span>
+                {item.dropdown && (
+                  <svg
+                    className={`w-4 h-4 transition-transform duration-200 
+                      ${activeDropdown === index ? "rotate-180" : ""}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                )}
+              </button>
 
               {/* Mobile Dropdown */}
-              {item.dropdown && activeDropdown === index && (
-                <div className="pl-4">
-                  {item.dropdown.map((subItem) => (
-                    <a
-                      key={subItem.name}
-                      onClick={() => handleNavigation(subItem.href)}
-                      className="block px-3 py-2 text-sm text-gray-600
-                        hover:text-[#40e0d0] transition-colors duration-300"
-                    >
-                      {subItem.name}
-                    </a>
-                  ))}
-                </div>
+              {item.dropdown && (
+                <motion.div
+                  initial={false}
+                  animate={
+                    activeDropdown === index
+                      ? { height: "auto", opacity: 1 }
+                      : { height: 0, opacity: 0 }
+                  }
+                  className="overflow-hidden"
+                >
+                  <div
+                    className={`pl-4 py-2 space-y-1 
+                    ${isDarkMode ? "bg-gray-800/50" : "bg-gray-50/50"}`}
+                  >
+                    {item.dropdown.map((subItem) => (
+                      <button
+                        key={subItem.name}
+                        onClick={() => {
+                          console.log("Clicked:", subItem.name, subItem.href); // Debug log
+                          handleMobileNavigation(subItem.href);
+                        }}
+                        className={`w-full text-left block px-4 py-2 text-sm rounded-md
+                          transition-colors duration-300 cursor-pointer
+                          ${
+                            isDarkMode
+                              ? "text-gray-300 hover:text-emerald-400 hover:bg-gray-700/50"
+                              : "text-gray-600 hover:text-emerald-600 hover:bg-gray-100"
+                          }`}
+                      >
+                        {subItem.name}
+                      </button>
+                    ))}
+                  </div>
+                </motion.div>
               )}
             </div>
           ))}
+
+          {/* Get Started Button */}
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -339,9 +427,10 @@ const Navbar = () => {
               navigate("/login");
               setIsMenuOpen(false);
             }}
-            className="w-full mt-4 bg-gradient-to-r from-[#00ffff] to-[#ffd700] 
-              text-gray-900 px-3 py-2 rounded-full font-medium hover:from-[#ffd700] 
-              hover:to-[#00ffff] transition-all duration-300 shadow-md hover:shadow-lg"
+            className="w-full mt-4 bg-gradient-to-r from-emerald-500 to-teal-500
+              text-white px-4 py-2 rounded-full font-medium 
+              hover:from-teal-500 hover:to-emerald-500
+              transition-all duration-300 shadow-md hover:shadow-lg"
           >
             Get Started
           </motion.button>
